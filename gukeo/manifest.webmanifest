@@ -1,0 +1,10 @@
+{
+  "name": "모두의 국어",
+  "short_name": "모두의 국어",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
