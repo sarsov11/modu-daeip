@@ -60,6 +60,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .exams button.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .exams button small{font-weight:700;color:var(--faint);margin-left:6px;font-size:13.5px}
 .exams button.on small{color:#cfcfcf}
+.years button{padding:7px 12px;font-size:14.5px}
+.years button.on{background:var(--green);border-color:var(--green)}
 .seg.area{max-width:520px;margin-bottom:22px}
 .sec-h .h{font-size:19px;color:var(--ink)}
 .set .no{font-size:14px;font-weight:900;color:var(--sub)}
@@ -206,6 +208,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <div class="stat"><div class="k">이번 주 출석</div><div class="week" id="vWeek"></div></div>
     </div>
     <div class="month" id="vMonth"></div>
+    <div class="exams years" id="yearBar"></div>
     <div class="exams" id="examBar"></div>
     <div class="seg area" id="areaBar"></div>
     <h2 class="sec-h"><span class="h" id="vExam"></span> <span id="vLeft"></span></h2>
@@ -305,8 +308,13 @@ function renderHome(){
   // 세트 목록
   const done = id => { const st = LS.get("st."+id, null); return st && st.graded; };
   if (!EXAMS.some(e => e.key === S.exam)) S.exam = EXAMS[0] && EXAMS[0].key;
+  const cur0 = EXAMS.find(e => e.key === S.exam), yr = cur0 ? cur0.year : 0;
+  const yb = $("#yearBar"); yb.innerHTML = "";
+  [...new Set(EXAMS.map(e => e.year))].forEach(y => { const b = document.createElement("button"); if (y === yr) b.className = "on";
+    b.textContent = y; b.onclick = () => { S.exam = EXAMS.find(e => e.year === y).key; LS.set("exam", S.exam); renderHome(); }; yb.appendChild(b); });
+  const yon = yb.querySelector(".on"); if (yon) yb.scrollLeft = yon.offsetLeft - yb.offsetLeft - 8;  // 고른 학년도가 보이게
   const eb = $("#examBar"); eb.innerHTML = "";
-  EXAMS.forEach(e => { const b = document.createElement("button"); if (e.key === S.exam) b.className = "on";
+  EXAMS.filter(e => e.year === yr).forEach(e => { const b = document.createElement("button"); if (e.key === S.exam) b.className = "on";
     b.innerHTML = `${esc(e.label)}<small>${e.sets.filter(s => done(s.id)).length}/${e.sets.length}</small>`;
     b.onclick = () => { S.exam = e.key; LS.set("exam", e.key); renderHome(); }; eb.appendChild(b); });
   const AREAS = ["전체","독서","문학","화법과작문","언어와매체"];
