@@ -77,7 +77,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .set .st.ing{color:var(--green)}
 
 /* ---------- 설정 ---------- */
-#sheetSettings{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
+#sheetSettings,.ovl{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
 .panel{background:var(--bg);border-radius:22px;width:min(520px,92vw);padding:24px 26px 26px;display:flex;flex-direction:column;gap:20px}
 .panel h2{margin:0;font-size:21px;font-weight:900}
 .row .lab{font-size:14px;font-weight:700;color:var(--sub);margin-bottom:8px}
@@ -160,6 +160,73 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .nopass .pane-p,.nopass .divider,.nopass #tools{display:none!important}
 .nopass .pane-q{flex:1 1 auto!important;border:0!important}
 .nopass .qwrap{max-width:760px;margin:0 auto}
+/* 실전 모드 */
+.nav{position:fixed;left:0;right:0;bottom:0;height:calc(62px + var(--safe-b));padding-bottom:var(--safe-b);background:var(--bg);border-top:1.5px solid var(--line);display:flex;z-index:20}
+.nav button{flex:1;font-weight:900;font-size:16px;color:var(--faint)}
+.nav button.on{color:var(--green)}
+.home-in{padding-bottom:120px}
+.sec-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-row .sec-h{margin:0}
+#btnPaper{margin-left:auto}
+.btn-start{background:var(--green);color:#fff;border-radius:12px;padding:11px 20px;font-weight:900;font-size:16px;white-space:nowrap}
+.qbar{display:none;flex:none;border-top:1.5px solid var(--line);padding:8px 10px calc(8px + var(--safe-b));gap:8px;align-items:center;background:var(--bg)}
+.exam .qbar{display:flex}
+.exam .steps{display:none}
+.qbar .blocks{flex:1;min-width:0;display:flex;gap:3px;overflow-x:auto;scrollbar-width:none}
+.qbar .blocks button{flex:1 0 24px;height:36px;border-radius:6px;border:1.5px solid var(--line);font-size:13.5px;font-weight:700;color:var(--sub)}
+.qbar .blocks button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.qbar .blocks button.o{background:var(--green);border-color:var(--green);color:#fff}
+.qbar .blocks button.x{background:var(--red);border-color:var(--red);color:#fff}
+.qbar .blocks button.curset{box-shadow:inset 0 -4px 0 var(--green)}
+.qbar .blocks button.curset.on,.qbar .blocks button.curset.o{box-shadow:inset 0 -4px 0 var(--yellow)}
+.qbar .nv{flex:none;border:1.5px solid var(--ink);border-radius:10px;padding:8px 12px;font-weight:900;font-size:14.5px}
+.res-big{font-size:64px;font-weight:900;line-height:1}
+.res-big small{font-size:22px;color:var(--sub);font-weight:700}
+.res-sub{color:var(--sub);font-weight:700;margin-top:-8px}
+.res-t{width:100%;border-collapse:collapse;font-size:16px}
+.res-t th{text-align:left;font-weight:700;color:var(--sub);padding:8px 0;border-bottom:1.5px solid var(--line)}
+.res-t td{text-align:right;font-weight:900;padding:8px 0;border-bottom:1.5px solid var(--line)}
+.wrongs{display:flex;flex-wrap:wrap;gap:6px}
+.wrongs button{min-width:42px;padding:7px 10px;border:1.5px solid var(--red);color:var(--red);border-radius:10px;font-weight:900}
+.panel .btn-line{text-align:center}
+/* 인쇄용 시험지: B4(257×364mm) 쪽마다 2단, 왼쪽 단 → 오른쪽 단 → 다음 쪽 (교재 규칙: Pretendard 700 10pt, 줄 1.5, 자간 -0.05em, #222) */
+#print{overflow:auto;background:var(--soft)}
+#print .ptop{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;padding:calc(10px + var(--safe-t)) 16px 10px;background:var(--bg);border-bottom:1.5px solid var(--line)}
+#print .ptop .ttl{font-weight:900;font-size:17px;flex:1}
+#paper{padding:16px 0 60px}
+.page{width:257mm;height:364mm;margin:0 auto 16px;background:#fff;color:#222;padding:12mm 13mm 10mm;box-shadow:0 2px 10px rgba(0,0,0,.1);display:flex;flex-direction:column;font-weight:700;font-size:10pt;line-height:1.5;letter-spacing:-.05em;overflow:hidden}
+.page .phead{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.5px solid #222;padding-bottom:5px;margin-bottom:8px;flex:none}
+.page .phead .sub{font-size:11pt;min-width:40mm}
+.page .phead .big{font-size:24pt;font-weight:900;letter-spacing:-.02em}
+.page .phead.small .big{font-size:14pt}
+.page .phead .no{font-size:11pt;min-width:40mm;text-align:right}
+.page .pcols{flex:1;min-height:0;display:flex}
+.page .pcol{flex:1;min-width:0;overflow:hidden}
+.page .pcol+.pcol{border-left:1px solid #222;margin-left:5mm;padding-left:5mm}
+.page .pcol:first-child{padding-right:5mm}
+.page .pfoot{flex:none;text-align:center;font-size:10pt;padding-top:4px}
+.page .sec{font-size:13pt;font-weight:900;border:2px solid #222;text-align:center;padding:3px 0;margin:0 0 10px}
+.page .dir{font-weight:900;margin:8px 0 5px}
+.page .pp{text-indent:1em;margin:0 0 2px;text-align:justify;word-break:keep-all}
+.page .pp.verse{text-indent:0;white-space:pre-line;text-align:left}
+.page figure{margin:6px 0;text-align:center}
+.page figure img{max-width:100%}
+.page .pq{margin:9px 0 11px}
+.page .pq .st{font-weight:900;word-break:keep-all}
+.page .pq .st b{margin-right:4px}
+.page .pbox{border:1px solid #222;padding:8px 9px 6px;margin:6px 0 5px;position:relative;white-space:pre-line;word-break:keep-all}
+.page .pbox::before{content:"<보기>";position:absolute;top:-.8em;left:50%;transform:translateX(-50%);background:#fff;padding:0 6px}
+.page .pc{display:block;padding-left:1.4em;text-indent:-1.4em;word-break:keep-all}
+.page table.key{width:100%;border-collapse:collapse;text-align:center;font-size:11pt;margin-bottom:10px}
+.page table.key td,.page table.key th{border:1px solid #222;padding:4px}
+@media print{
+  @page{size:257mm 364mm;margin:0}
+  body{background:#fff}
+  #home,#solve,#gate,.ovl,#sheetSettings,#print .ptop{display:none!important}
+  #print{display:block!important;overflow:visible;height:auto;background:#fff}
+  #paper{padding:0;zoom:1!important}
+  .page{margin:0;box-shadow:none;break-after:page}
+}
 /* 시안 A: 좌우 분할 */
 .lay-a .pane-q{flex:0 0 42%;min-width:380px;border-left:1.5px solid var(--line)}
 .lay-a .btn-q{display:none}
@@ -211,10 +278,29 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="exams years" id="yearBar"></div>
     <div class="exams" id="examBar"></div>
     <div class="seg area" id="areaBar"></div>
-    <h2 class="sec-h"><span class="h" id="vExam"></span> <span id="vLeft"></span></h2>
+    <div class="sec-row" id="secRow"><h2 class="sec-h"><span class="h" id="vExam"></span> <span id="vLeft"></span></h2><button class="btn-line" id="btnPaper">시험지</button><button class="btn-start" id="btnExam">실전 80분</button></div>
     <div class="sets" id="setList"></div>
+    <div class="sets" id="logList" hidden></div>
       </div>
+  <nav class="nav" id="nav"><button data-tab="past">기출</button><button data-tab="mock">모의고사</button><button data-tab="log">기록</button></nav>
 </section>
+
+<section id="print" class="screen" hidden>
+  <div class="ptop"><button class="back" id="pBack">나가기</button><div class="ttl" id="pTitle"></div><button class="btn-main" id="pPrint">인쇄</button></div>
+  <div class="paper" id="paper"></div>
+</section>
+
+<div id="sheetSel" class="ovl" hidden>
+  <div class="panel">
+    <h2 id="selTitle"></h2>
+    <div class="row"><div class="lab">선택 과목</div>
+      <div class="seg" id="selSeg"><button data-v="hw">화법과 작문</button><button data-v="em">언어와 매체</button></div></div>
+    <div class="row"><div class="lab">시간</div><b>80분</b></div>
+    <button class="done" id="selGo">시작</button>
+    <button class="btn-line" id="selCancel">닫기</button>
+  </div>
+</div>
+<div id="sheetRes" class="ovl" hidden><div class="panel" id="resBody"></div></div>
 
 <div id="sheetSettings" hidden>
   <div class="panel">
@@ -252,14 +338,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="divider" id="divider"><i></i></div>
     <div class="pane-q" id="paneQ"><div class="qwrap" id="qwrap"></div></div>
   </div>
+  <div class="qbar" id="qbar"><button class="nv" id="prevSet">이전</button><div class="blocks" id="blocks"></div><button class="nv" id="nextSet">다음</button></div>
 </section>
 
 <script src="data/suneung.js"></script>
+<script src="data/mock.js"></script>
 <script>
 (() => {
 "use strict";
 const EXAMS = window.GK_EXAMS || [];
 const SETS = EXAMS.flatMap(e => e.sets.map(s => Object.assign(s, { exam: e.key })));
+const MOCKS = (window.GK_MOCKS || []).map(e => Object.assign(e, { mock: true }));
+MOCKS.forEach(e => e.sets.forEach(s => Object.assign(s, { exam: e.key, mock: true })));
+const ALLSETS = SETS.concat(MOCKS.flatMap(e => e.sets)), ALLEX = EXAMS.concat(MOCKS);
+const EXAM_MIN = 80;
 const $ = s => document.querySelector(s);
 const CIR = ["①","②","③","④","⑤"];
 
@@ -269,7 +361,7 @@ const LS = {
   set(k, v){ try{ localStorage.setItem("gk."+k, JSON.stringify(v)); }catch(e){} },
   del(k){ try{ localStorage.removeItem("gk."+k); }catch(e){} }
 };
-const S = { exam: LS.get("exam",""), area: LS.get("area","전체"), layout: "a"  /* 09-29 대표님 결정: A안(좌우 분할) 확정 */, finger: LS.get("finger","0"), dday: LS.get("dday","") };
+const S = { tab: LS.get("tab","past"), mexam: LS.get("mexam",""), exam: LS.get("exam",""), area: LS.get("area","전체"), layout: "a"  /* 09-29 대표님 결정: A안(좌우 분할) 확정 */, finger: LS.get("finger","0"), dday: LS.get("dday","") };
 const today = () => { const d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
 const fmt = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
 
@@ -307,20 +399,30 @@ function renderHome(){
     return `<i class="${i >= nd ? "off" : ""}${days.has(k) ? " on" : ""}${k === today() ? " today" : ""}" title="${i+1}일"></i>`; }).join("");
   // 세트 목록
   const done = id => { const st = LS.get("st."+id, null); return st && st.graded; };
-  if (!EXAMS.some(e => e.key === S.exam)) S.exam = EXAMS[0] && EXAMS[0].key;
-  const cur0 = EXAMS.find(e => e.key === S.exam), yr = cur0 ? cur0.year : 0;
-  const yb = $("#yearBar"); yb.innerHTML = "";
-  [...new Set(EXAMS.map(e => e.year))].forEach(y => { const b = document.createElement("button"); if (y === yr) b.className = "on";
-    b.textContent = y; b.onclick = () => { S.exam = EXAMS.find(e => e.year === y).key; LS.set("exam", S.exam); renderHome(); }; yb.appendChild(b); });
-  const yon = yb.querySelector(".on"); if (yon) yb.scrollLeft = yon.offsetLeft - yb.offsetLeft - 8;  // 고른 학년도가 보이게
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === S.tab));
+  const isLog = S.tab === "log", isMock = S.tab === "mock";
+  ["#yearBar","#examBar","#areaBar","#secRow","#setList"].forEach(q => $(q).hidden = isLog);
+  $("#logList").hidden = !isLog;
+  if (isLog){ renderLog(); return; }
+  const P = isMock ? MOCKS : EXAMS, K = isMock ? "mexam" : "exam";
+  if (!P.some(e => e.key === S[K])) S[K] = P[0] ? P[0].key : "";
+  const cur0 = P.find(e => e.key === S[K]), yr = cur0 ? cur0.year : 0;
+  const yb = $("#yearBar"); yb.innerHTML = ""; yb.hidden = isMock;
+  if (!isMock){
+    [...new Set(P.map(e => e.year))].forEach(y => { const b = document.createElement("button"); if (y === yr) b.className = "on";
+      b.textContent = y; b.onclick = () => { S[K] = P.find(e => e.year === y).key; LS.set(K, S[K]); renderHome(); }; yb.appendChild(b); });
+    const yon = yb.querySelector(".on"); if (yon) yb.scrollLeft = yon.offsetLeft - yb.offsetLeft - 8;  // 고른 학년도가 보이게
+  }
   const eb = $("#examBar"); eb.innerHTML = "";
-  EXAMS.filter(e => e.year === yr).forEach(e => { const b = document.createElement("button"); if (e.key === S.exam) b.className = "on";
+  P.filter(e => isMock || e.year === yr).forEach(e => { const b = document.createElement("button"); if (e.key === S[K]) b.className = "on";
     b.innerHTML = `${esc(e.label)}<small>${e.sets.filter(s => done(s.id)).length}/${e.sets.length}</small>`;
-    b.onclick = () => { S.exam = e.key; LS.set("exam", e.key); renderHome(); }; eb.appendChild(b); });
+    b.onclick = () => { S[K] = e.key; LS.set(K, e.key); renderHome(); }; eb.appendChild(b); });
   const AREAS = ["전체","독서","문학","화법과작문","언어와매체"];
   $("#areaBar").innerHTML = AREAS.map(a => `<button data-v="${a}" class="${a === S.area ? "on" : ""}">${a === "화법과작문" ? "화법과 작문" : a === "언어와매체" ? "언어와 매체" : a}</button>`).join("");
-  const ex = EXAMS.find(e => e.key === S.exam);
+  const ex = P.find(e => e.key === S[K]);
   $("#vExam").textContent = ex ? ex.label : "";
+  $("#btnExam").hidden = !ex; $("#btnExam").onclick = () => startExam(ex);
+  $("#btnPaper").hidden = !ex; $("#btnPaper").onclick = () => { location.hash = "#/p/"+encodeURIComponent(ex.key); };
   const list = $("#setList"); list.innerHTML = ""; let left = 0;
   (ex ? ex.sets : []).filter(s => S.area === "전체" || s.area === S.area).forEach(set => {
     const st = LS.get("st."+set.id, null);
@@ -346,6 +448,12 @@ document.querySelectorAll(".seg[data-key]").forEach(seg => seg.addEventListener(
   const b = e.target.closest("button"); if (!b) return;
   S[seg.dataset.key] = b.dataset.v; LS.set(seg.dataset.key, b.dataset.v); syncSeg();
 }));
+$("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.tab = b.dataset.tab; LS.set("tab", S.tab); renderHome(); $("#home").scrollTop = 0; });
+function renderLog(){
+  const L = LS.get("exlog", []).slice().reverse(), box = $("#logList");
+  box.innerHTML = L.map(r => `<button class="set" data-k="${esc(r.k)}" data-sel="${r.sel}"><div class="chips"><span class="chip">${r.mock ? "모의고사" : "기출"}</span>${r.selL ? `<span class="chip g">${esc(r.selL)}</span>` : ""}</div><div class="t">${esc(r.label)}</div><div class="m"><span>${r.d} / ${fmt(r.sec)}</span><span class="st">${r.pt} / ${r.tot}</span></div></button>`).join("");
+  box.onclick = e => { const b = e.target.closest(".set"); if (b) location.hash = "#/x/"+encodeURIComponent(b.dataset.k)+"/"+b.dataset.sel; };
+}
 $("#areaBar").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.area = b.dataset.v; LS.set("area", S.area); renderHome(); });
 $("#openSettings").onclick = () => { syncSeg(); $("#inDday").value = S.dday; $("#sheetSettings").hidden = false; };
 $("#closeSettings").onclick = () => { S.dday = $("#inDday").value; LS.set("dday", S.dday); $("#sheetSettings").hidden = true; renderHome(); };
@@ -494,24 +602,25 @@ let cur = null, timer = null;
 function openSet(set){
   const st = LS.get("st."+set.id, null) || { ans: {}, sec: 0, graded: false };
   cur = { set, st, confirm: false };
+  paintSet(set); renderQ(); startTimer();
+}
+function paintSet(set){
   const solve = $("#solve");
-  solve.className = "screen lay-"+S.layout;
+  solve.className = "screen lay-"+S.layout + (cur.exam ? " exam" : "");
   if (!set.passage || !set.passage.length) solve.classList.add("nopass");  // 지문 없는 단독 문항: 문항 칸을 넓게
   if (S.layout === "a"){ const sp = LS.get("split", 54); document.documentElement.style.setProperty("--split", sp+"%"); }
-  $("#sTitle").textContent = set.title;
+  $("#sTitle").textContent = cur.exam ? cur.exam.label : set.title;
   $("#sheet").innerHTML = `<div class="meta"><span class="chip">${set.area}</span>${set.field ? `<span class="chip g">${esc(dots(set.field))}</span>` : ""}</div>`
-    + set.passage.map(p => /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p${p.includes("\n") ? ' class="verse"' : ""}>${rich(p)}</p>`).join("") + `<div class="src">${esc(set.source)} / 한국교육과정평가원</div>`;
+    + set.passage.map(p => /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p${p.includes("\n") ? ' class="verse"' : ""}>${rich(p)}</p>`).join("") + `<div class="src">${esc(set.source)}${set.mock ? "" : " / 한국교육과정평가원"}</div>`;
   $("#paneP").scrollTop = 0; $("#paneQ").scrollTop = 0;
   Ink.mount($("#sheet"), set.id);
   setTool("view");
-  renderQ();
-  startTimer();
   if (document.fonts) document.fonts.ready.then(() => Ink.resize());
 }
 function renderQ(){
   const { set, st } = cur; const g = st.graded;
   let h = "";
-  if (g){
+  if (g && !cur.exam){
     const ok = set.q.filter((q,i) => st.ans[i] === q.a).length;
     h += `<div class="result"><div class="sc">${ok}<small> / ${set.q.length}</small></div><div class="d">풀이 시간 ${fmt(st.sec)}<br>권장 ${set.minutes}분</div></div>`;
   }
@@ -531,10 +640,10 @@ function renderQ(){
   });
   $("#qwrap").innerHTML = h;
   const left = set.q.length - Object.keys(st.ans).length;
-  $("#sLeft").textContent = g ? 0 : left;
+  $("#sLeft").textContent = cur.exam ? (cur.ES.done ? 0 : examLeft()) : (g ? 0 : left);
   $("#btnQ").textContent = "문항 "+set.q.length;
-  const b = $("#btnGrade"); b.textContent = g ? "다시 풀기" : "채점"; b.classList.toggle("alt", g);
-  paintTime();
+  const b = $("#btnGrade"); b.textContent = cur.exam ? (cur.ES.done ? "결과" : "제출") : (g ? "다시 풀기" : "채점"); b.classList.toggle("alt", g && !cur.exam);
+  paintTime(); paintBlocks();
 }
 function dots(s){ return String(s).replace(/\s*·\s*/g, " + "); }  // 취향 규칙: 가운뎃점 나열 대신 +
 /* 데이터 문자열 → 화면: 이스케이프 후 <u>…</u>와 [[img:경로]]만 살린다 */
@@ -546,9 +655,11 @@ $("#qwrap").addEventListener("click", e => {
   const c = e.target.closest(".c"); if (!c || cur.st.graded) return;
   const i = +c.closest(".qi").dataset.i, n = +c.dataset.n;
   if (cur.st.ans[i] === n) delete cur.st.ans[i]; else cur.st.ans[i] = n;
+  if (cur.exam){ const k = cur.set.id+":"+i; if (cur.st.ans[i]) cur.ES.ans[k] = cur.st.ans[i]; else delete cur.ES.ans[k]; }
   cur.confirm = false; saveSt(); renderQ();
 });
 $("#btnGrade").onclick = () => {
+  if (cur.exam) return examSubmit();
   const { set, st } = cur;
   if (st.graded){ // 다시 풀기
     cur.st = { ans: {}, sec: 0, graded: false }; Ink.clear(); saveSt(); renderQ(); startTimer(); $("#paneQ").scrollTop = 0; return;
@@ -564,15 +675,162 @@ $("#btnGrade").onclick = () => {
   const hist = LS.get("hist", []); hist.push({ id: set.id, d: today(), ok: set.q.filter((q,i) => st.ans[i] === q.a).length, n: set.q.length, sec: st.sec, ans: st.ans }); LS.set("hist", hist.slice(-500));
   renderQ(); openDrawer(true); $("#paneQ").scrollTop = 0;
 };
-function saveSt(){ LS.set("st."+cur.set.id, cur.st); }
+function saveSt(){ if (cur.exam) LS.set(cur.key, cur.ES); else LS.set("st."+cur.set.id, cur.st); }
 function paintTime(){
-  const el = $("#sTime"); const s = cur.st.sec;
+  const el = $("#sTime");
+  if (cur.exam){ const rem = Math.max(0, EXAM_MIN*60 - cur.ES.sec); el.firstChild.nodeValue = fmt(rem); el.querySelector("small").textContent = "";
+    el.classList.toggle("over", rem < 600 && !cur.ES.done); return; }
+  const s = cur.st.sec;
   el.firstChild.nodeValue = fmt(s); el.querySelector("small").textContent = "/ "+cur.set.minutes+":00";
   el.classList.toggle("over", s > cur.set.minutes*60 && !cur.st.graded);
 }
 function startTimer(){ stopTimer(); if (cur.st.graded) return;
   timer = setInterval(() => { if (document.hidden) return; cur.st.sec++; paintTime(); if (cur.st.sec % 5 === 0) saveSt(); }, 1000); }
 function stopTimer(){ if (timer){ clearInterval(timer); timer = null; } }
+
+/* ---------- 인쇄용 시험지: 공통 → 선택(화법과 작문, 언어와 매체, 각각 새 쪽) → 정답표. 블록을 단에 차례로 채우고 넘치면 다음 단·다음 쪽 ---------- */
+async function renderPaper(ex){
+  const hasEm = ex.sets.some(isEm), selHw = s => hasEm && !isEm(s) && (s.q[0].no || 0) >= 35;
+  const groups = [["", ex.sets.filter(s => !isEm(s) && !selHw(s))]];
+  if (hasEm) groups.push(["화법과 작문", ex.sets.filter(selHw)], ["언어와 매체", ex.sets.filter(isEm)]);
+  const name = ex.mock ? ex.label : ex.label.replace(/^(\d{4})/, "$1학년도");
+  const blocks = [], keys = [];
+  groups.forEach(([g, sets]) => {
+    if (g) blocks.push({ html: `<div class="sec">${g}</div>`, brk: true });
+    sets.forEach(set => {
+      const nos = set.q.map(q => q.no).filter(Boolean);
+      if (set.passage && set.passage.length && nos.length){
+        blocks.push({ html: `<div class="dir">[${nos[0]}${nos.length > 1 ? "～"+nos[nos.length-1] : ""}] 다음 글을 읽고 물음에 답하시오.</div>`, keep: true });
+        set.passage.forEach(p => blocks.push({ html: /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p class="pp${p.includes("\n") ? " verse" : ""}">${rich(p)}</p>` }));
+      }
+      set.q.forEach(q => {
+        keys.push([(g ? g.slice(0, 2)+" " : "")+q.no, q.a, q.pts || 2]);
+        blocks.push({ html: `<div class="pq"><div class="st"><b>${q.no}.</b>${rich(q.stem)}${q.pts === 3 ? " [3점]" : ""}</div>`
+          + (q.box ? `<div class="pbox">${rich(q.box)}</div>` : "")
+          + q.c.map((c, k) => `<span class="pc">${CIR[k]} ${rich(c)}</span>`).join("") + `</div>` });
+      });
+    });
+  });
+  const rows = []; for (let i = 0; i < keys.length; i += 10) rows.push(keys.slice(i, i + 10));
+  blocks.push({ html: `<div class="sec">정답</div><table class="key">${rows.map(r => `<tr>${r.map(k => `<th>${esc(String(k[0]))}</th>`).join("")}</tr><tr>${r.map(k => `<td>${CIR[k[1]-1]}${k[2] === 3 ? " (3)" : ""}</td>`).join("")}</tr>`).join("")}</table>`, brk: true });
+
+  const paper = $("#paper"); paper.innerHTML = ""; $("#pTitle").textContent = name+" 국어 영역";
+  // 도판을 먼저 받아 두어야 높이를 재서 나눌 수 있다
+  const srcs = [...new Set(blocks.flatMap(b => [...b.html.matchAll(/src="([^"]+)"/g)].map(m => m[1])))];
+  await Promise.all(srcs.map(src => new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = src; })));
+  let page, cols, ci = 0, pno = 0;
+  const newPage = () => {
+    pno++; page = document.createElement("div"); page.className = "page";
+    page.innerHTML = (pno === 1
+      ? `<div class="phead"><div class="sub">${esc(name)}</div><div class="big">국어 영역</div><div class="no">제 1 교시</div></div>`
+      : `<div class="phead small"><div class="sub">${esc(name)}</div><div class="big">국어 영역</div><div class="no"></div></div>`)
+      + `<div class="pcols"><div class="pcol"></div><div class="pcol"></div></div><div class="pfoot">${pno}</div>`;
+    paper.appendChild(page); cols = page.querySelectorAll(".pcol"); ci = 0;
+  };
+  const over = c => c.scrollHeight > c.clientHeight + 1;
+  newPage();
+  for (let bi = 0; bi < blocks.length; bi++){
+    const b = blocks[bi];
+    if (b.brk && (cols[0].children.length || cols[1].children.length)) newPage();
+    const t = document.createElement("div"); t.innerHTML = b.html;
+    const nodes = [...t.childNodes];
+    nodes.forEach(n => cols[ci].appendChild(n));
+    // 지시문은 다음 블록과 같은 단에 둔다
+    if (b.keep && bi + 1 < blocks.length){ const t2 = document.createElement("div"); t2.innerHTML = blocks[bi+1].html; const n2 = [...t2.childNodes]; n2.forEach(n => cols[ci].appendChild(n)); const o = over(cols[ci]); n2.forEach(n => n.remove()); if (o && cols[ci].children.length > nodes.length){ nodes.forEach(n => n.remove()); if (++ci > 1) newPage(); nodes.forEach(n => cols[ci].appendChild(n)); } continue; }
+    if (over(cols[ci]) && cols[ci].children.length > nodes.length){
+      nodes.forEach(n => n.remove()); if (++ci > 1) newPage(); nodes.forEach(n => cols[ci].appendChild(n));
+    }
+  }
+  fitPaper();
+}
+function fitPaper(){ const pg = $("#paper .page"); if (!pg) return; const w = pg.offsetWidth; $("#paper").style.zoom = Math.min(1, (innerWidth - 24) / w); }
+addEventListener("resize", () => { if (!$("#print").hidden) fitPaper(); });
+$("#pBack").onclick = () => { location.hash = "#/"; };
+$("#pPrint").onclick = () => window.print();
+
+/* ---------- 실전 모드: 회차 전체 80분 ---------- */
+const isEm = s => /-em-/.test(s.id);
+function examSets(ex, sel){
+  const hasEm = ex.sets.some(isEm), hwSel = s => hasEm && !isEm(s) && (s.q[0].no || 0) >= 35;
+  return ex.sets.filter(s => sel === "em" ? !hwSel(s) : !isEm(s));
+}
+function startExam(ex){
+  if (!ex.sets.some(isEm)){ location.hash = "#/x/"+encodeURIComponent(ex.key)+"/all"; return; }
+  let sel = LS.get("sel", "hw");
+  const paint = () => $("#selSeg").querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.v === sel));
+  $("#selTitle").textContent = ex.label; paint(); $("#sheetSel").hidden = false;
+  $("#selSeg").onclick = e => { const b = e.target.closest("button"); if (b){ sel = b.dataset.v; LS.set("sel", sel); paint(); } };
+  $("#selGo").onclick = () => { $("#sheetSel").hidden = true; location.hash = "#/x/"+encodeURIComponent(ex.key)+"/"+sel; };
+  $("#selCancel").onclick = () => { $("#sheetSel").hidden = true; };
+}
+function openExam(ex, sel){
+  const key = "ex."+ex.key+"."+sel;
+  cur = { exam: ex, sel, sets: examSets(ex, sel), key, ES: LS.get(key, null) || { ans: {}, sec: 0, done: false, idx: 0 }, confirm: false };
+  examGo(cur.ES.idx || 0); startExamTimer();
+  if (cur.ES.done && cur.ES.res) showResult();
+}
+function examGo(i){
+  const E = cur; i = Math.max(0, Math.min(E.sets.length - 1, i)); E.ES.idx = i;
+  const set = E.sets[i], ans = {};
+  set.q.forEach((q, j) => { const v = E.ES.ans[set.id+":"+j]; if (v) ans[j] = v; });
+  E.set = set; E.st = { ans, graded: E.ES.done, sec: E.ES.sec }; E.confirm = false;
+  paintSet(set); renderQ(); saveSt();
+}
+function examLeft(){ return cur.sets.reduce((n, s) => n + s.q.filter((q, j) => !cur.ES.ans[s.id+":"+j]).length, 0); }
+function paintBlocks(){
+  if (!cur.exam) return;
+  const E = cur; let h = "";
+  E.sets.forEach((s, si) => s.q.forEach((q, j) => {
+    const v = E.ES.ans[s.id+":"+j]; let c = E.ES.done ? (v === q.a ? "o" : "x") : (v ? "on" : "");
+    if (si === E.ES.idx) c += " curset";
+    h += `<button class="${c}" data-si="${si}">${q.no || ""}</button>`;
+  }));
+  const bl = $("#blocks"); bl.innerHTML = h;
+  const cb = bl.querySelector(".curset"); if (cb) bl.scrollLeft = Math.max(0, cb.offsetLeft - bl.offsetLeft - 40);
+}
+$("#blocks").addEventListener("click", e => { const b = e.target.closest("button"); if (b && cur && cur.exam){ examGo(+b.dataset.si); $("#paneQ").scrollTop = 0; } });
+$("#prevSet").onclick = () => { if (cur && cur.exam){ examGo(cur.ES.idx - 1); $("#paneQ").scrollTop = 0; } };
+$("#nextSet").onclick = () => { if (cur && cur.exam){ examGo(cur.ES.idx + 1); $("#paneQ").scrollTop = 0; } };
+function warn(msg){ const w = document.createElement("div"); w.className = "warn"; w.textContent = msg;
+  $("#qwrap").querySelector(".warn")?.remove(); $("#qwrap").prepend(w); $("#paneQ").scrollTop = 0; }
+function examSubmit(){
+  const E = cur;
+  if (E.ES.done) return showResult();
+  if (!E.confirm){ const n = examLeft(); E.confirm = true; warn((n ? "미응답 "+n+"문항 + " : "")+"제출 후 수정 불가 → 제출 한 번 더"); return; }
+  finishExam();
+}
+function examScore(){
+  const by = {}, wrong = []; let pt = 0, tot = 0;
+  cur.sets.forEach(s => s.q.forEach((q, j) => {
+    const p = q.pts || 2; tot += p; (by[s.area] = by[s.area] || [0, 0])[1]++;
+    if (cur.ES.ans[s.id+":"+j] === q.a){ pt += p; by[s.area][0]++; } else wrong.push({ no: q.no || "", sid: s.id });
+  }));
+  return { pt, tot, by, wrong };
+}
+function finishExam(){
+  const E = cur; if (E.ES.done) return;
+  E.ES.done = true; stopTimer(); E.ES.res = examScore(); saveSt();
+  const days = LS.get("days", []); if (!days.includes(today())){ days.push(today()); LS.set("days", days.slice(-400)); }
+  const log = LS.get("exlog", []);
+  log.push({ k: E.exam.key, sel: E.sel, selL: E.sel === "hw" ? "화법과 작문" : E.sel === "em" ? "언어와 매체" : "", label: E.exam.label, mock: !!E.exam.mock, d: today(), sec: E.ES.sec, pt: E.ES.res.pt, tot: E.ES.res.tot });
+  LS.set("exlog", log.slice(-300));
+  examGo(E.ES.idx); showResult();
+}
+function showResult(){
+  const r = cur.ES.res || examScore(), A = { 화법과작문: "화법과 작문", 언어와매체: "언어와 매체" };
+  $("#resBody").innerHTML = `<h2>${esc(cur.exam.label)}${cur.sel !== "all" ? " / "+(cur.sel === "hw" ? "화법과 작문" : "언어와 매체") : ""}</h2>
+    <div class="res-big">${r.pt}<small> / ${r.tot}</small></div>
+    <div class="res-sub">${fmt(cur.ES.sec)} / ${EXAM_MIN}:00</div>
+    <table class="res-t">${["독서","문학","화법과작문","언어와매체"].filter(a => r.by[a]).map(a => `<tr><th>${A[a] || a}</th><td>${r.by[a][0]} / ${r.by[a][1]}</td></tr>`).join("")}</table>
+    ${r.wrong.length ? `<div class="row"><div class="lab">오답 ${r.wrong.length}</div><div class="wrongs">${r.wrong.map(w => `<button data-sid="${w.sid}">${w.no}</button>`).join("")}</div></div>` : ""}
+    <button class="done" id="resClose">검토</button>`;
+  $("#sheetRes").hidden = false;
+  $("#resClose").onclick = () => { $("#sheetRes").hidden = true; };
+  const wr = $("#resBody").querySelector(".wrongs");
+  if (wr) wr.onclick = e => { const b = e.target.closest("button"); if (!b) return; $("#sheetRes").hidden = true; examGo(cur.sets.findIndex(s => s.id === b.dataset.sid)); $("#paneQ").scrollTop = 0; };
+}
+function startExamTimer(){ stopTimer(); if (cur.ES.done) return;
+  timer = setInterval(() => { if (document.hidden || !cur || !cur.exam) return; cur.ES.sec++; paintTime(); if (cur.ES.sec % 5 === 0) saveSt(); if (cur.ES.sec >= EXAM_MIN*60) finishExam(); }, 1000); }
 
 // 도구
 function setTool(t){ Ink.setTool(t); document.querySelectorAll("#tools button").forEach(b => b.classList.toggle("on", b.dataset.t === t)); }
@@ -601,8 +859,15 @@ window.__inkResize = () => Ink.resize();
 
 /* ---------- 경로 ---------- */
 function route(){
+  $("#sheetRes").hidden = true; $("#sheetSel").hidden = true; $("#print").hidden = true;
+  const mp = location.hash.match(/^#\/p\/([^/]+)$/);
+  const pex = mp && ALLEX.find(e => e.key === decodeURIComponent(mp[1]));
+  if (pex){ if (cur){ saveSt(); stopTimer(); cur = null; } $("#home").hidden = true; $("#solve").hidden = true; $("#print").hidden = false; renderPaper(pex); $("#print").scrollTop = 0; return; }
+  const mx = location.hash.match(/^#\/x\/([^/]+)\/(hw|em|all)$/);
+  const ex = mx && ALLEX.find(e => e.key === decodeURIComponent(mx[1]));
+  if (ex){ if (cur){ saveSt(); stopTimer(); } $("#home").hidden = true; $("#solve").hidden = false; openExam(ex, mx[2]); return; }
   const m = location.hash.match(/^#\/s\/(.+)$/);
-  const set = m && SETS.find(s => s.id === decodeURIComponent(m[1]));
+  const set = m && ALLSETS.find(s => s.id === decodeURIComponent(m[1]));
   if (set){ $("#home").hidden = true; $("#solve").hidden = false; openSet(set); }
   else { if (cur){ saveSt(); stopTimer(); cur = null; } $("#solve").hidden = true; $("#home").hidden = false; renderHome(); }
 }

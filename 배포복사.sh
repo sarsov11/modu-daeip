@@ -3,7 +3,7 @@
 set -e
 W="$(cd "$(dirname "$0")" && pwd)"; A="$W/../../모두의국어_시안"
 cp "$A/index.html" "$A/manifest.webmanifest" "$A/icon.svg" "$W/gukeo/"
-cp "$A/data/suneung.js" "$W/gukeo/data/"
+cp "$A/data/suneung.js" "$A/data/mock.js" "$W/gukeo/data/"
 rm -rf "$W/gukeo/assets"; cp -r "$A/assets" "$W/gukeo/"
 cd "$W"; git add -A
 git -c user.name=sarsov11 -c user.email=sarsov11@users.noreply.github.com commit -q -m "$1
