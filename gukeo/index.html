@@ -623,6 +623,9 @@ function renderQ(){
   if (g && !cur.exam){
     const ok = set.q.filter((q,i) => st.ans[i] === q.a).length;
     h += `<div class="result"><div class="sc">${ok}<small> / ${set.q.length}</small></div><div class="d">풀이 시간 ${fmt(st.sec)}<br>권장 ${set.minutes}분</div></div>`;
+    /* ★ 채점 뒤 「다음 세트」 하나 — 결과가 나와도 홈으로 나가 직접 골라야 했다(2026-10-09 흐름 점검) */
+    const nx = nextSet(set);
+    if (nx) h += `<button class="btn-main nextset" data-go="${esc(nx.id)}" style="display:block;width:100%;margin:10px 0 14px;padding:14px;font-size:16px">다음 세트: ${esc(nx.title)} →</button>`;
   }
   h += `<div class="steps">` + set.q.map((q,i) => `<i class="${g ? (st.ans[i] === q.a ? "o" : "x") : (st.ans[i] ? "on" : "")}"></i>`).join("") + `</div>`;
   set.q.forEach((q, i) => {
@@ -645,11 +648,19 @@ function renderQ(){
   const b = $("#btnGrade"); b.textContent = cur.exam ? (cur.ES.done ? "결과" : "제출") : (g ? "다시 풀기" : "채점"); b.classList.toggle("alt", g && !cur.exam);
   paintTime(); paintBlocks();
 }
+/* 같은 시험지에서 아직 채점 안 한 다음 세트, 없으면 전체 목록에서 다음 안 푼 세트 */
+function nextSet(set){
+  const done = s => { const t = LS.get("st."+s.id, null); return t && t.graded; };
+  const i = SETS.findIndex(s => s.id === set.id);
+  const rest = SETS.slice(i+1).concat(SETS.slice(0, i));
+  return rest.find(s => s.exam === set.exam && !done(s)) || rest.find(s => !done(s)) || null;
+}
 function dots(s){ return String(s).replace(/\s*·\s*/g, " + "); }  // 취향 규칙: 가운뎃점 나열 대신 +
 /* 데이터 문자열 → 화면: 이스케이프 후 <u>…</u>와 [[img:경로]]만 살린다 */
 function rich(s){ return esc(s).replace(/&lt;(\/?)u&gt;/g, "<$1u>").replace(/\[\[img:([\w\/.\-가-힣]+)\]\]/g, (m, src) => `<figure><img src="${src}" alt="" onload="window.__inkResize&&window.__inkResize()"></figure>`); }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 $("#qwrap").addEventListener("click", e => {
+  const nb = e.target.closest(".nextset"); if (nb){ location.hash = "#/s/"+nb.dataset.go; return; }
   const xb = e.target.closest(".exbtn");
   if (xb){ const ex = xb.nextElementSibling; ex.hidden = !ex.hidden; xb.textContent = ex.hidden ? "해설 보기" : "해설 닫기"; return; }
   const c = e.target.closest(".c"); if (!c || cur.st.graded) return;
@@ -674,6 +685,8 @@ $("#btnGrade").onclick = () => {
   const days = LS.get("days", []); if (!days.includes(today())){ days.push(today()); LS.set("days", days.slice(-400)); }
   const hist = LS.get("hist", []); hist.push({ id: set.id, d: today(), ok: set.q.filter((q,i) => st.ans[i] === q.a).length, n: set.q.length, sec: st.sec, ans: st.ans }); LS.set("hist", hist.slice(-500));
   renderQ(); openDrawer(true); $("#paneQ").scrollTop = 0;
+  /* 짜잔 3판(테라러닝 공용): 세트 결산 별 1~3개 */
+  if (window.ZZ){ const ok = set.q.filter((q,i) => st.ans[i] === q.a).length, r = ok/set.q.length; ZZ.quiet && ZZ.quiet(900); if (r >= 0.4) ZZ.stars(r >= 1 ? 3 : r >= 0.7 ? 2 : 1); }
 };
 function saveSt(){ if (cur.exam) LS.set(cur.key, cur.ES); else LS.set("st."+cur.set.id, cur.st); }
 function paintTime(){
@@ -876,5 +889,6 @@ document.addEventListener("visibilitychange", () => { if (document.hidden && cur
 route();
 })();
 </script>
+<script src="js/zzsfx.js?v=1009a" defer></script><script src="js/zzajan.js?v=1009a" defer></script>
 </body>
 </html>
