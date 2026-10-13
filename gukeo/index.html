@@ -450,9 +450,15 @@ document.querySelectorAll(".seg[data-key]").forEach(seg => seg.addEventListener(
 }));
 $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.tab = b.dataset.tab; LS.set("tab", S.tab); renderHome(); $("#home").scrollTop = 0; });
 function renderLog(){
-  const L = LS.get("exlog", []).slice().reverse(), box = $("#logList");
-  box.innerHTML = L.map(r => `<button class="set" data-k="${esc(r.k)}" data-sel="${r.sel}"><div class="chips"><span class="chip">${r.mock ? "모의고사" : "기출"}</span>${r.selL ? `<span class="chip g">${esc(r.selL)}</span>` : ""}</div><div class="t">${esc(r.label)}</div><div class="m"><span>${r.d} / ${fmt(r.sec)}</span><span class="st">${r.pt} / ${r.tot}</span></div></button>`).join("");
-  box.onclick = e => { const b = e.target.closest(".set"); if (b) location.hash = "#/x/"+encodeURIComponent(b.dataset.k)+"/"+b.dataset.sel; };
+  const byId = {}; ALLSETS.forEach(x => { byId[x.id] = x; });
+  const items = [];
+  LS.get("exlog", []).forEach((r, i) => items.push({ d: r.d, o: i, href: "#/x/"+encodeURIComponent(r.k)+"/"+r.sel, kind: r.mock ? "모의고사" : "기출", chip: r.selL, label: r.label, m: r.d+" / "+fmt(r.sec), st: r.pt+" / "+r.tot }));
+  LS.get("hist", []).forEach((r, i) => { const x = byId[r.id]; if (x) items.push({ d: r.d, o: 1000+i, href: "#/s/"+r.id, kind: x.mock ? "모의고사" : "기출", chip: x.area, label: x.title, m: r.d+" / "+fmt(r.sec), st: r.ok+" / "+r.n }); });
+  items.sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : a.o - b.o);
+  const box = $("#logList");
+  box.innerHTML = items.length ? items.reverse().map(r => `<button class="set" data-href="${esc(r.href)}"><div class="chips"><span class="chip">${r.kind}</span>${r.chip ? `<span class="chip g">${esc(r.chip)}</span>` : ""}</div><div class="t">${esc(r.label)}</div><div class="m"><span>${r.m}</span><span class="st">${r.st}</span></div></button>`).join("")
+    : `<div class="t" style="padding:24px 4px;color:var(--sub)">채점한 세트가 아직 없습니다.</div>`;
+  box.onclick = e => { const b = e.target.closest(".set"); if (b) location.hash = b.dataset.href; };
 }
 $("#areaBar").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.area = b.dataset.v; LS.set("area", S.area); renderHome(); });
 $("#openSettings").onclick = () => { syncSeg(); $("#inDday").value = S.dday; $("#sheetSettings").hidden = false; };
