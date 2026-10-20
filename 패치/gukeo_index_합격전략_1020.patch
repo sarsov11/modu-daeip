@@ -1,12 +1,10 @@
-diff --git a/gukeo/index.html b/gukeo/index.html
-index 49562f0..5b8a5b7 100644
 --- a/gukeo/index.html
 +++ b/gukeo/index.html
-@@ -896,5 +896,7 @@ route();
+@@ -896,5 +896,7 @@
  })();
  </script>
  <script src="js/zzsfx.js?v=1009a" defer></script><script src="js/zzajan.js?v=1009a" defer></script>
 +<!-- 합격전략 브리핑(공용 zzstrat) -->
-+<script src="js/zzstrat.js?v=f75feffa"></script><script src="js/zzstrat_gukeo.js?v=78719f4c"></script><style>.home-top{justify-content:flex-start!important}.home-top>#openSettings{margin-left:auto}.home-top>.zs-btn{bottom:auto!important;right:auto!important}</style><script>ZZSTRAT.auto("gukeo",{fab:false});(function(){function f(){var b=ZZSTRAT.button("gukeo",".home-top");if(b){b.classList.add("zs-fab");b.style.cssText="position:static;margin-left:8px;padding:7px 11px;font-size:13px;flex:none"}}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f()})();</script>
++<script src="js/zzstrat.js?v=fb062fd9"></script><script src="js/zzstrat_gukeo.js?v=e1e80a21"></script><style>.home-top{justify-content:flex-start!important}.home-top>#openSettings{margin-left:auto}.home-top>.zs-btn{bottom:auto!important;right:auto!important}</style><script>ZZSTRAT.auto("gukeo",{fab:false});(function(){function f(){var b=ZZSTRAT.button("gukeo",".home-top");if(b){b.classList.add("zs-fab");b.style.cssText="position:static;margin-left:8px;padding:7px 11px;font-size:13px;flex:none"}}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f()})();</script>
  </body>
  </html>
