@@ -1,0 +1,85 @@
+diff --git a/gukeo/index.html b/gukeo/index.html
+index 882e8e2..b4bc866 100644
+--- a/gukeo/index.html
++++ b/gukeo/index.html
+@@ -114,6 +114,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
+ /* 지문 종이: 폭을 고정해 화면을 돌려도 줄바꿈과 필기 위치가 그대로 유지된다 */
+ .sheet{position:relative;width:var(--sheet-w);margin:0 auto;padding:30px 0 120px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+ .sheet .meta{display:flex;gap:6px;margin-bottom:16px}
++.sp{background:rgba(120,140,170,.18);box-decoration-break:clone;-webkit-box-decoration-break:clone;border-radius:2px}
++b.mk{font-weight:700;margin:0 2px}
++.cc{display:inline-flex;gap:5px;margin-right:16px;align-items:baseline}.cc i{font-style:normal;font-size:.85em;color:var(--sub);font-weight:700}
++table.gt{border-collapse:collapse;margin:8px auto;font-size:.95em;white-space:normal}table.gt th,table.gt td{border:1px solid currentColor;padding:4px 8px;text-align:center}
++.sheet .box{margin:4px 0 16px}.sheet .box p{text-indent:0;margin:0 0 6px}
+ .sheet p.verse{text-indent:0;text-align:left;white-space:pre-line}
+ .sheet figure,.box figure,.c figure{margin:10px 0;text-align:center}
+ .sheet figure img,.box figure img,.c figure img{max-width:100%;height:auto}
+@@ -343,6 +348,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
+ 
+ <script src="data/suneung.js"></script>
+ <script src="data/mock.js"></script>
++<script src="js/gkfix.js?v=1025"></script>
+ <script>
+ (() => {
+ "use strict";
+@@ -617,7 +623,7 @@ function paintSet(set){
+   if (S.layout === "a"){ const sp = LS.get("split", 54); document.documentElement.style.setProperty("--split", sp+"%"); }
+   $("#sTitle").textContent = cur.exam ? cur.exam.label : set.title;
+   $("#sheet").innerHTML = `<div class="meta"><span class="chip">${set.area}</span>${set.field ? `<span class="chip g">${esc(dots(set.field))}</span>` : ""}</div>`
+-    + set.passage.map(p => /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p${p.includes("\n") ? ' class="verse"' : ""}>${rich(p)}</p>`).join("") + `<div class="src">${esc(set.source)}${set.mock ? "" : " / 한국교육과정평가원"}</div>`;
++    + passHtml(set.passage, "", "box") + `<div class="src">${esc(set.source)}${set.mock ? "" : " / 한국교육과정평가원"}</div>`;
+   $("#paneP").scrollTop = 0; $("#paneQ").scrollTop = 0;
+   Ink.mount($("#sheet"), set.id);
+   setTool("view");
+@@ -642,7 +648,7 @@ function renderQ(){
+       + `<div class="cs">` + q.c.map((c, j) => {
+           const n = j+1; let cls = "c";
+           if (g){ if (n === q.a) cls += " ok"; else if (n === mine) cls += " bad"; } else if (n === mine) cls += " sel";
+-          return `<button class="${cls}" data-n="${n}"><span class="n">${n}</span><span>${rich(c)}</span></button>`;
++          return `<button class="${cls}" data-n="${n}"><span class="n">${n}</span><span>${choiceHtml(q, j)}</span></button>`;
+         }).join("") + `</div>`
+       + (g ? `<button class="exbtn">해설 보기</button><div class="ex" hidden><b>정답 ${CIR[q.a-1]}</b>${esc(q.ex)}</div>` : "")
+       + `</div>`;
+@@ -661,9 +667,25 @@ function nextSet(set){
+   const rest = SETS.slice(i+1).concat(SETS.slice(0, i));
+   return rest.find(s => s.exam === set.exam && !done(s)) || rest.find(s => !done(s)) || null;
+ }
++/* 지문 문단 → 화면. 지문 안의 「<보 기>」 문단부터 딸린 문단(◦·ㄱ.·<자료 n>·그림)까지는 보기 상자로 묶는다(2026-10-25) */
++function passHtml(ps, pcls, bcls, list){
++  const one = p => /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p${pcls || p.includes("\n") ? ` class="${(pcls + (p.includes("\n") ? " verse" : "")).trim()}"` : ""}>${rich(p)}</p>`;
++  const out = []; let box = null, prevHead = false;
++  const close = () => { if (box) out.push(`<div class="${bcls}">${box.join("")}</div>`); box = null; };
++  ps.forEach(p => {
++    if (/^\s*<\s*보\s*기\s*>\s*$/.test(p)){ close(); box = []; prevHead = false; return; }
++    if (box && (prevHead || /^\s*(◦|•|ㆍ|[ㄱ-ㅎ]\s*\.|<\s*자료|\[\[img:)/.test(p))){ box.push(one(p)); prevHead = /^\s*<\s*자료\s*\d/.test(p); return; }
++    close(); out.push(one(p));
++  });
++  close();
++  return list ? out : out.join("");
++}
++/* 짝짓기 선지: 칸 머리(ⓐ ⓑ …)를 칸마다 붙인다 */
++function choiceHtml(q, k){ return q.cc ? q.cc[k].map((c, j) => `<span class="cc"><i>${esc(q.hd[j])}</i>${rich(c)}</span>`).join("") : rich(q.c[k]); }
+ function dots(s){ return String(s).replace(/\s*·\s*/g, " + "); }  // 취향 규칙: 가운뎃점 나열 대신 +
+ /* 데이터 문자열 → 화면: 이스케이프 후 <u>…</u>와 [[img:경로]]만 살린다 */
+-function rich(s){ return esc(s).replace(/&lt;(\/?)u&gt;/g, "<$1u>").replace(/\[\[img:([\w\/.\-가-힣]+)\]\]/g, (m, src) => `<figure><img src="${src}" alt="" onload="window.__inkResize&&window.__inkResize()"></figure>`); }
++function rich(s){ return esc(s).replace(/&lt;(\/?)u&gt;/g, "<$1u>").replace(/\u0001/g, '<span class="sp">').replace(/\u0002/g, "</span>").replace(/\u0003(.)\u0004/g, '<b class="mk">[$1]</b>')
++    .replace(/\[\[표:([^\]]+)\]\]/g, (m, t) => `<table class="gt">${t.split(";;").map((r, i) => `<tr>${r.split("|").map(c => i ? `<td>${c}</td>` : `<th>${c}</th>`).join("")}</tr>`).join("")}</table>`).replace(/\[\[img:([\w\/.\-가-힣]+)\]\]/g, (m, src) => `<figure><img src="${src}" alt="" onload="window.__inkResize&&window.__inkResize()"></figure>`); }
+ function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+ $("#qwrap").addEventListener("click", e => {
+   const nb = e.target.closest(".nextset"); if (nb){ location.hash = "#/s/"+nb.dataset.go; return; }
+@@ -720,13 +742,13 @@ async function renderPaper(ex){
+       const nos = set.q.map(q => q.no).filter(Boolean);
+       if (set.passage && set.passage.length && nos.length){
+         blocks.push({ html: `<div class="dir">[${nos[0]}${nos.length > 1 ? "～"+nos[nos.length-1] : ""}] 다음 글을 읽고 물음에 답하시오.</div>`, keep: true });
+-        set.passage.forEach(p => blocks.push({ html: /^\[\[img:[^\]]+\]\]$/.test(p) ? rich(p) : `<p class="pp${p.includes("\n") ? " verse" : ""}">${rich(p)}</p>` }));
++        passHtml(set.passage, "pp", "pbox", true).forEach(h => blocks.push({ html: h }));
+       }
+       set.q.forEach(q => {
+         keys.push([(g ? g.slice(0, 2)+" " : "")+q.no, q.a, q.pts || 2]);
+         blocks.push({ html: `<div class="pq"><div class="st"><b>${q.no}.</b>${rich(q.stem)}${q.pts === 3 ? " [3점]" : ""}</div>`
+           + (q.box ? `<div class="pbox">${rich(q.box)}</div>` : "")
+-          + q.c.map((c, k) => `<span class="pc">${CIR[k]} ${rich(c)}</span>`).join("") + `</div>` });
++          + q.c.map((c, k) => `<span class="pc">${CIR[k]} ${choiceHtml(q, k)}</span>`).join("") + `</div>` });
+       });
+     });
+   });
