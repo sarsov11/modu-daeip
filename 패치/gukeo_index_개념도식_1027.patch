@@ -1,0 +1,11 @@
+diff --git a/gukeo/index.html b/gukeo/index.html
+index 666c9f7..3b8dbaf 100644
+--- a/gukeo/index.html
++++ b/gukeo/index.html
+@@ -922,5 +922,6 @@ route();
+ <script src="js/zzstrat.js?v=3247d7fa"></script><script src="js/zzstrat_gukeo.js?v=6e6263ef"></script><style>.home-top{justify-content:flex-start!important}.home-top>#openSettings{margin-left:auto}.home-top>.zs-btn{bottom:auto!important;right:auto!important}</style><script>ZZSTRAT.auto("gukeo",{fab:false});(function(){function f(){var b=ZZSTRAT.button("gukeo",".home-top");if(b){b.classList.add("zs-fab");b.style.cssText="position:static;margin-left:8px;padding:7px 11px;font-size:13px;flex:none"}}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f()})();</script>
+ <!-- 테라러닝 홈 단추(공용 terrahome) -->
+ <script src="js/terrahome.js?v=243c5cfd" data-slot=".home-top" defer></script><script>addEventListener('load',function(){var g=document.getElementById('gate'),h=document.querySelector('.th-home');if(g&&h&&getComputedStyle(g).display!='none'){var b=g.querySelector('.brand')||g.firstElementChild,c=h.cloneNode(true),d=document.createElement('div');d.style.margin='0 0 20px';d.appendChild(c);b.parentNode.insertBefore(d,b)}})</script>
++<script>/* 개념 도식 쪽(concept.html) 단추 — 2026-10-27 */(function(){function f(){var t=document.querySelector(".home-top");if(!t||t.querySelector(".gk-concept"))return;var a=document.createElement("a");a.className="gk-concept";a.href="concept.html";a.textContent="개념";a.style.cssText="margin-left:8px;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;font-weight:700;font-size:13px;color:var(--ink);text-decoration:none;flex:none";var s=t.querySelector("#openSettings");if(s)t.insertBefore(a,s);else t.appendChild(a)}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f()})();</script>
+ </body>
+ </html>
