@@ -39,6 +39,7 @@
   const itemKey = it => (it.r ? 'r|' : '') + it.s + '|' + it.q + '|' + it.n;
   function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   function setTitle(s) { return `${s.학년} ${s.연도}년 ${s.월}월 ${s.시험}`; }
+  const worksH = s => (s.작품 || []).map(w => '<span>' + esc((w.작가 ? w.작가 + ', ' : '') + '「' + (w.제목 || '?') + '」') + '</span>').join('');
   function works(s) { return (s.작품 || []).map(w => (w.작가 ? w.작가 + ', ' : '') + '「' + (w.제목 || '?') + '」').join(' · '); }
   function conceptStat(cid) {
     const its = DATA.byConcept[cid] || []; let n = 0, ok = 0;
@@ -146,6 +147,7 @@
         <a class="li" href="#/sets"><div><div class="t">문학 기출</div><div class="d">세트를 통째로 풀고 선지마다 작품 속 근거를 확인합니다.</div></div></a>
         <a class="li" href="#/map"><div><div class="t">합격 지도</div><div class="d">개념어가 들어간 기출 선지를 작품에 직접 대어 봅니다.</div></div></a>
         <a class="li" href="#/map"><div><div class="t">어법</div><div class="d">음운 변동, 품사, 문장 성분, 중세 국어를 기출 문항으로 연습합니다.</div></div></a>
+        <a class="li" href="javascript:void 0" data-zs="1"><div><div class="t">합격 전략</div></div></a>
         <a class="li" href="#/reading"><div><div class="t">비문학</div><div class="d">선지 하나마다 지문 속 근거 문장을 찾는 드릴입니다.</div></div></a>
       </div>`;
   }
@@ -236,7 +238,7 @@
         <a class="btn primary" href="#/drill/${encodeURIComponent(cid)}" style="text-decoration:none" ${its.length ? '' : 'aria-disabled="true"'}>드릴 ${Math.min(10, its.length)}문제</a>
       </div>
       ${개념도식(c, c.헷갈림.map(h => DATA.cmap[h]).filter(Boolean), [])}
-      <div class="how"><b>작품에서 확인하는 법</b>${esc(c.확인법)}</div>
+      <div class="how concept-how"><b>작품에서 확인하는 법</b>${esc(c.확인법)}</div>
       ${c.헷갈림.length ? `<p class="muted" style="margin-top:12px">함께 구별할 개념: ${c.헷갈림.map(h => DATA.cmap[h] ? `<a class="chip link" href="#/lit/c/${h}" style="text-decoration:none">${esc(DATA.cmap[h].이름)}</a>` : '').join(' ')}</p>` : ''}
       <h2>기출에서는 이렇게 나왔습니다</h2>
       <div class="examples" id="ex"><span class="muted">불러오는 중…</span></div>
@@ -245,7 +247,7 @@
     for (const it of exItems) {
       const s = await getSet(it.s); const q = s.qs.find(x => x.no === it.q); const o = q.선지[it.n - 1];
       const meta = DATA.smap[it.s];
-      parts.push(`<div class="card ex"><div>${esc(q.choices[it.n - 1])}</div>${o.근거.length ? `<div style="margin-top:6px">작품: ${o.근거.map(g => `<q>${esc(g)}</q>`).join(' … ')}</div>` : ''}<div class="src">${esc(setTitle(meta))} ${it.q}번 ${CIRC[it.n - 1]} · ${esc(works(meta))}</div></div>`);
+      parts.push(`<div class="card ex"><div>${esc(q.choices[it.n - 1])}</div>${o.근거.length ? `<div style="margin-top:6px">작품: ${o.근거.map(g => `<q>${esc(g)}</q>`).join(' … ')}</div>` : ''}<div class="src"><span>${esc(setTitle(meta))} ${it.q}번 ${CIRC[it.n - 1]}</span>${worksH(meta)}</div></div>`);
     }
     const ex = document.getElementById('ex'); if (ex) ex.innerHTML = parts.join('') || '<span class="muted">아직 태깅된 선지가 없습니다.</span>';
   }
@@ -319,7 +321,7 @@
   function tqCoach() {
     if (!window.TERA_Q) return;
     const st = [
-      ['.tq-term', 'term', '띠가 있는 말을 누르면 뜻이 나와요', '개념어 아래에 옅은 띠가 있습니다. 번호 줄의 단추로 개념어를 끄고 켤 수 있습니다.'],
+      ['.tq-term', 'term', '띠가 있는 말을 누르면 뜻이 나와요', '옅은 띠는 개념어예요. 번호 줄 단추로 켜고 끕니다.'],
       ['.tq-tool[data-t="unsure"]', 'unsure', '헷갈리면 표시해 두세요', '표시한 선지는 다음 드릴에서 틀린 선지처럼 먼저 나옵니다.'],
       ['.tq-tool[data-t="pen"]', 'pen', '펜으로 문제 위에 바로 쓸 수 있어요', '펜을 누르면 화면에 필기합니다. 끝내려면 다시 누르세요.']
     ];
@@ -347,7 +349,7 @@
     D.cur = { it, s, q, o, meta, stage: 'ox', picked: new Set(), hot: Math.max(0, ...nodes.map(x => hot.get(x) || 0)), unsure: false };
     const metaLine = D.kind === 'read'
       ? `<span>${esc(setTitle(meta))} ${meta.범위}번</span><span>${esc(meta.분야)}</span><span>${esc(meta.제재 || '')}</span>`
-      : `<span>${esc(setTitle(meta))} ${meta.범위}번</span><span>${esc(meta.갈래)}</span><span>${esc(works(meta))}</span>`;
+      : `<span>${esc(setTitle(meta))} ${meta.범위}번</span><span>${esc(meta.갈래)}</span>${worksH(meta).replace(/<span>/g, '<span class="wk">')}`;
     const paras = D.kind === 'read' && s.문단 && s.문단.length
       ? `<details class="card" style="padding:10px 14px"><summary class="muted">문단별 중심 내용</summary><ol style="margin:8px 0 0;padding-left:20px;font-size:14px">${s.문단.map(p => `<li>${esc(p.요약)}</li>`).join('')}</ol></details>` : '';
     $view.innerHTML = `
@@ -389,7 +391,7 @@
       const psg = document.getElementById('psg'); psg.classList.add('picking');
       qp.innerHTML = `${head}${stem}${claim}
         <div class="tq-ox one"><button class="is-pick" disabled>${D.cur.ans === 'O' ? '맞다' : '틀리다'}</button></div>
-        <div class="step"><b>근거 찾기</b> · ${W}에서 판단의 근거가 된 줄을 눌러 고르세요. 여러 줄을 골라도 됩니다.</div>
+        <div class="step"><b>근거 찾기</b> · 근거가 된 줄을 눌러 고르세요.</div>
         <div class="actions"><button class="btn primary" id="go" disabled>확정</button><button class="btn" id="none">${W}에 그런 내용이 없다</button></div>`;
       tqPost(qp, D.cur.hot);
       const go = qp.querySelector('#go');
@@ -424,7 +426,7 @@
     const W = D.kind === 'read' ? '지문' : '작품';
     const truth = o.ox === 'O' ? W + '과 맞는 선지' : W + '과 다른 선지';
     const evMsg = o.없음 || !o.근거.length ? (saidNone ? W + '에 없는 내용이라는 것도 맞게 짚었습니다.' : '이 선지가 말한 내용은 ' + W + '에 없습니다.')
-      : evOK ? '고른 줄에 근거가 있습니다.' : saidNone ? '근거가 ' + W + '에 있습니다. 노란 표시를 보세요.' : '근거는 노란 표시가 있는 줄입니다.';
+      : evOK ? '고른 줄에 근거가 있습니다.' : saidNone ? '근거가 ' + W + '에 있습니다. 색칠된 줄을 보세요.' : '근거는 색칠된 줄입니다.';
     const TRAP = { 반대: '정반대로 바꾼 선지', 바꿔치기: '주체나 대상을 바꿔 놓은 선지', 범위: '범위(전부·일부, 항상·때때로)를 바꾼 선지', 인과: '원인과 결과를 엇갈리게 한 선지', 없는내용: '지문에 없는 내용을 넣은 선지' };
     const cs = (o.개념 || []).map(id => DATA.cmap[id]).filter(Boolean);
     const expHtml = `<div class="verdict ${oxOK && evOK !== false ? 'ok' : 'no'}"><b>${oxOK ? '판단 맞음' : '판단 틀림'} · ${truth}</b></div>
@@ -464,7 +466,7 @@
   function sheet(cid) {
     const c = DATA.cmap[cid]; if (!c) return;
     const bg = document.createElement('div'); bg.className = 'sheet-bg';
-    bg.innerHTML = `<div class="sheet"><span class="chip">${esc(DATA.gmap[c.묶음].이름)}</span><h2 style="margin-top:8px">${esc(c.이름)}</h2><p class="def">${esc(c.뜻)}</p><div class="how"><b>작품에서 확인하는 법</b>${esc(c.확인법)}</div>
+    bg.innerHTML = `<div class="sheet"><span class="chip">${esc(DATA.gmap[c.묶음].이름)}</span><h2 style="margin-top:8px">${esc(c.이름)}</h2><p class="def">${esc(c.뜻)}</p><div class="how concept-how"><b>작품에서 확인하는 법</b>${esc(c.확인법)}</div>
       <div class="actions" style="margin-top:14px"><a class="btn" style="text-decoration:none" href="#/lit/c/${c.id}">개념 카드</a><button class="btn primary">닫기</button></div></div>`;
     bg.onclick = e => { if (e.target === bg || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') bg.remove(); };
     document.body.appendChild(bg);
@@ -479,11 +481,11 @@
     const kinds = ['전체', ...new Set(all.map(s => s.갈래))];
     const list = all.filter(s => (F.학년 === '전체' || s.학년 === F.학년) && (F.갈래 === '전체' || s.갈래 === F.갈래));
     const recSet = list.find(s => !Object.keys(S.att).some(k => k.startsWith(s.id + '|')));
-    $view.innerHTML = `<h1>문학 기출</h1><p class="sub">세트를 통째로 풀고, 선지마다 작품 속 근거를 확인합니다.</p>
+    $view.innerHTML = `<h1>문학 기출</h1>
       <div class="filters" id="kind"><button class="on" data-go="#/sets">문학</button><button data-go="#/reading">비문학</button></div>
       <div class="filters" id="fg">${grades.map(g => `<button class="${F.학년 === g ? 'on' : ''}" data-v="${esc(g)}">${esc(g)}</button>`).join('')}</div>
       <div class="filters" id="fk">${kinds.map(g => `<button class="${F.갈래 === g ? 'on' : ''}" data-v="${esc(g)}">${esc(g)}</button>`).join('')}</div>
-      <div class="setlist">${list.map(s => `<a class="card setcard" href="#/set/${encodeURIComponent(s.id)}"><span class="muted">${esc(setTitle(s))} · ${s.범위}번</span><span class="t">${esc(s.갈래)}${s === recSet ? '<i class="recpill">추천</i>' : ''}</span><span class="w">${esc(works(s))}</span></a>`).join('')}</div>`;
+      <div class="setlist">${list.map(s => `<a class="card setcard" href="#/set/${encodeURIComponent(s.id)}"><span class="muted">${esc(setTitle(s))} · ${s.범위}번</span><span class="t">${esc(s.갈래)}${s === recSet ? '<i class="recpill">추천</i>' : ''}</span><span class="w">${worksH(s)}</span></a>`).join('')}</div>`;
     document.querySelectorAll('#kind button').forEach(b => b.onclick = () => { location.hash = b.dataset.go; });
     document.querySelectorAll('#fg button').forEach(b => b.onclick = () => { F.학년 = b.dataset.v; viewSets(); });
     document.querySelectorAll('#fk button').forEach(b => b.onclick = () => { F.갈래 = b.dataset.v; viewSets(); });
@@ -498,7 +500,7 @@
     const N = s.qs.length;
     const qHot = q => Math.max(0, ...(q.선지 || []).flatMap(o => (o.개념 || []).map(c => DATA.cmap[c] ? (hot.get('L' + DATA.cmap[c].묶음) || 0) : 0)));
     $view.innerHTML = `<div class="drill" style="margin-top:12px">
-        <div class="passage" id="psg"><div class="meta"><span>${esc(setTitle(meta))} ${meta.범위}번</span><span>${esc(meta.갈래)}</span><span>${esc(works(meta))}</span></div><div id="lines">${renderBlocks(s.blocks)}</div></div>
+        <div class="passage" id="psg"><div class="meta"><span>${esc(setTitle(meta))} ${meta.범위}번</span><span>${esc(meta.갈래)}</span>${worksH(meta).replace(/<span>/g, '<span class="wk">')}</div><div id="lines">${renderBlocks(s.blocks)}</div></div>
         <div class="q-panel" id="qp">
           <aside class="tq-omr" id="omr"><div id="jp"></div>${s.qs.map(q => `<div class="tq-omr-row" data-r="${q.no}"><span class="tq-qn">${q.no}번</span>${q.choices.map((c, i) => `<i data-n="${i + 1}">${i + 1}</i>`).join('')}</div>`).join('')}</aside>
           ${s.qs.map(q => `<section class="tq-q" data-q="${q.no}">${tqMeta(`${q.no}번 문제`, q.pts === 3 ? '<span class="tq-pts">3점</span>' : '')}
@@ -627,7 +629,7 @@
     $view.innerHTML = `<a href="#/grammar" class="muted" style="text-decoration:none">← 어법</a>
       <div class="concept-head" style="margin-top:8px"><div><h1>${esc(c.이름)}</h1></div>
       <a class="btn primary" style="text-decoration:none" href="#/grammar/drill/${cid}">드릴 ${Math.min(10, its.length)}문제</a></div>
-      ${개념도식(c, [], c.예 || [])}<div class="how"><b>확인하는 법</b>${esc(c.확인법)}</div>
+      ${개념도식(c, [], c.예 || [])}<div class="how concept-how"><b>확인하는 법</b>${esc(c.확인법)}</div>
       <p class="muted" style="margin-top:16px">기출 선지 ${its.length}개</p>`;
   }
 
@@ -717,11 +719,11 @@
     const kinds = ['전체', ...new Set(ix.sets.map(s => s.분야))];
     const list = ix.sets.filter(s => (RF.학년 === '전체' || s.학년 === RF.학년) && (RF.분야 === '전체' || s.분야 === RF.분야));
     const recRd = list.find(s => !rdone(s.id));
-    $view.innerHTML = `<h1>비문학 근거 찾기</h1><p class="sub">지문 하나를 골라 선지마다 맞다·틀리다를 정하고, 그렇게 본 근거 문장을 지문에서 짚습니다. 틀린 선지는 어떻게 바꿔 놓았는지도 알려 줍니다.</p>
+    $view.innerHTML = `<h1>비문학 근거 찾기</h1>
       <div class="filters" id="kind"><button data-go="#/sets">문학</button><button class="on" data-go="#/reading">비문학</button></div>
       <div class="filters" id="rg">${grades.map(g => `<button class="${RF.학년 === g ? 'on' : ''}" data-v="${esc(g)}">${esc(g)}</button>`).join('')}</div>
       <div class="filters" id="rk">${kinds.map(g => `<button class="${RF.분야 === g ? 'on' : ''}" data-v="${esc(g)}">${esc(g)}</button>`).join('')}</div>
-      <div class="setlist">${list.map(s => `<a class="card setcard" href="#/reading/${encodeURIComponent(s.id)}"><span class="muted">${esc(setTitle(s))} · ${s.범위}번 · 선지 ${s.nc}개${rdone(s.id) ? ` · ${rdone(s.id)}개 풂` : ''}</span><span class="t">${esc(s.분야)}${s === recRd ? '<i class="recpill">추천</i>' : ''}</span><span class="w">${esc(s.제재 || '')}</span></a>`).join('')}</div>`;
+      <div class="setlist">${list.map(s => `<a class="card setcard" href="#/reading/${encodeURIComponent(s.id)}"><span class="muted">${esc(setTitle(s))} · ${s.범위}번 · 선지 ${s.nc}개${rdone(s.id) ? ` · ${rdone(s.id)}개 풂` : ''}</span><span class="t">${esc(s.분야)}${s === recRd ? '<i class="recpill">추천</i>' : ''}</span><span class="w">${String(s.제재 || '').split(' / ').map(x => `<span>${esc(x)}</span>`).join('')}</span></a>`).join('')}</div>`;
     document.querySelectorAll('#kind button').forEach(b => b.onclick = () => { location.hash = b.dataset.go; });
     document.querySelectorAll('#rg button').forEach(b => b.onclick = () => { RF.학년 = b.dataset.v; viewReading(); });
     document.querySelectorAll('#rk button').forEach(b => b.onclick = () => { RF.분야 = b.dataset.v; viewReading(); });
@@ -743,7 +745,7 @@
     nav('records');
     const vals = Object.values(S.att); const n = vals.length, ok = vals.filter(a => a.ox && a.ev !== false).length;
     const rows = DATA.concepts['개념'].map(c => ({ c, st: conceptStat(c.id) })).filter(x => x.st.n).sort((a, b) => a.st.ok / a.st.n - b.st.ok / b.st.n);
-    $view.innerHTML = `<h1>기록</h1><p><a class="muted" href="#/settings">화면 설정 →</a></p>
+    $view.innerHTML = `<h1>기록</h1>
       <div class="stat-row"><div class="card stat"><span class="muted">푼 선지</span><b>${n}</b></div><div class="card stat"><span class="muted">판단·근거 모두 맞힘</span><b>${n ? Math.round(ok / n * 100) : 0}%</b></div><div class="card stat"><span class="muted">다룬 개념</span><b>${rows.length}</b></div></div>
       <h2>약한 개념부터</h2><div class="weak">${rows.map((r, i) => `<a class="card" href="#/drill/${r.c.id}"><span>${esc(r.c.이름)}${i ? '' : '<i class="recpill">추천</i>'}</span><span class="muted">${r.st.ok}/${r.st.n}</span></a>`).join('') || '<p class="muted">아직 푼 선지가 없습니다.</p><a class="btn primary" style="text-decoration:none" href="#/home">시작</a>'}</div>`;
   }
@@ -770,10 +772,10 @@
       <h2>하루 공부 시간</h2><div class="filters" id="subj">${SUBJ.map(([v, l]) => `<button class="${plan.subs.includes(v) ? 'on' : ''}" data-v="${v}" ${v === 'gukeo' ? 'disabled aria-disabled="true"' : ''}>${l}</button>`).join('')}</div>
       <div class="filters" id="per">${PERS.map(([m, l]) => `<button class="${plan.per === m ? 'on' : ''}" data-m="${m}" ${m * plan.subs.length > 480 ? 'disabled aria-disabled="true"' : ''}>${l}</button>`).join('')}</div>
       <p class="muted" id="plansum">고른 과목 ${plan.subs.length}개 · 하루 합계 ${fmtMin(plan.per * plan.subs.length)}</p>
+      <div class="list" style="margin-top:12px"><a class="li" href="javascript:void 0" data-zs="1"><div><div class="t">합격 전략</div></div></a></div>
       <h2>화면 스킨</h2><div class="filters" id="sk">${skins.map(([v, l]) => `<button class="${S.skin === v ? 'on' : ''}" data-v="${v}">${l}</button>`).join('')}</div>
       <h2>밝기 (시험지 스킨)</h2><div class="filters" id="th">${themes.map(([v, l]) => `<button class="${S.theme === v ? 'on' : ''}" data-v="${v}">${l}</button>`).join('')}</div>
-      <h2>기록 지우기</h2><button class="btn" id="wipe">푼 기록 모두 지우기</button>
-      <div class="actions" style="margin-top:18px"><a class="btn primary" style="text-decoration:none" href="#/home">확정</a></div>`;
+      <h2>기록 지우기</h2><button class="btn" id="wipe">푼 기록 모두 지우기</button>`;
     document.querySelectorAll('#subj button').forEach(b => b.onclick = () => { if (b.dataset.v === 'gukeo') return; const on = plan.subs.includes(b.dataset.v); const subs = on ? plan.subs.filter(x => x !== b.dataset.v) : plan.subs.concat(b.dataset.v); const cap = Math.floor(480 / subs.length); const per = plan.per > cap ? PERS.filter(x => x[0] <= cap).pop()[0] : plan.per; savePlan(subs, per); viewSettings(); });
     document.querySelectorAll('#per button').forEach(b => b.onclick = () => { if (b.disabled) return; savePlan(plan.subs, Number(b.dataset.m)); viewSettings(); });
     document.querySelectorAll('#sk button').forEach(b => b.onclick = () => { S.skin = b.dataset.v; save(); applySkin(); viewSettings(); });
@@ -781,5 +783,41 @@
     document.getElementById('wipe').onclick = () => { if (confirm('푼 기록을 모두 지울까요?')) { S.att = {}; save(); viewSettings(); } };
   }
 
+
+  /* 화면표준 14절: 「합격 전략」은 떠 있는 알약 대신 오늘 · 설정의 줄에서 연다. 공용 창(zzstrat.js)은 그대로 두고 열릴 때 덮개 style 만 넣는다 */
+  document.addEventListener('click', function (e) { const a = e.target.closest && e.target.closest('[data-zs]'); if (a) { e.preventDefault(); if (window.ZZSTRAT) window.ZZSTRAT.open('gukeo'); } });
+  (function(){
+    var P="#E5202E", PI="#B61D29", PS="rgba(229,32,46,.10)";
+    var 덮개=[
+      "#zs,#zst,#zsy{--zs-bg:#FFFFFF;--zs-card:#FFFFFF;--zs-line:#E6E8EC;--zs-red:"+P+";--zs-blue:#F08A91;--zs-gold:#7C818C;--zs-soft:#F1F3F6;--zs-tx:#111419;--zs-sub:#5F6670}",
+      "#zs .top .t{letter-spacing:0;font-size:13px}#zs .top button{border-radius:12px}",
+      "#zs section{border-radius:18px;box-shadow:none}",
+      "#zs .chip{border-radius:999px;background:#F1F3F6;color:#333941}#zs .chip.r{background:"+PS+";color:"+PI+"}",
+      "#zs .pk{border:1px solid #E6E8EC;border-radius:14px;background:#FFFFFF}#zs .pk.on{border-color:"+P+";background:"+PS+";box-shadow:none}",
+      "#zs .tg{border-radius:999px;font-size:11.5px}#zs .tg.a{background:"+P+";color:#fff}#zs .tg.l{background:rgba(229,32,46,.16);color:"+PI+";border:0}#zs .tg.g{background:#F1F3F6;color:#5F6670;border:0}",
+      "#zs .sc,#zs .sc.s,#zs .sc.d{border:1px solid #E6E8EC;border-radius:14px}#zs .sc.on{background:#FFFFFF}#zs .sc .rb{border-radius:999px}",
+      "#zs .sc.s .rb,#zs .sc.s .bar b{background:"+P+"}#zs .sc.d .rb,#zs .sc.d .bar b{background:#F08A91}#zs .sc.b .bar b{background:#B4BAC3}",
+      "#zs .det{border-radius:14px}#zs .vl i{background:"+P+";border-radius:50%}",
+      "#zs .gauge .fl{background:rgba(229,32,46,.14)}#zs .stack i.s{background:"+P+"}#zs .stack i.d{background:#F08A91}#zs .stack i.b{background:#B4BAC3}",
+      "#zs .gp b{background:"+P+";border-radius:12px}#zs .gp::after{background:"+P+"}#zs .gb .gline b{border-radius:12px}",
+      "#zs .gc .cd{border:1px solid #E6E8EC;border-radius:14px}",
+      "#zs .gc .cd:nth-child(1){--c:"+P+"!important}#zs .gc .cd:nth-child(2){--c:#F08A91!important}#zs .gc .cd:nth-child(3){--c:#F6B3B8!important}#zs .gc .cd:nth-child(n+4){--c:#9CA3AF!important}",
+      "#zs .gc .cg{border-radius:999px}#zs .hit{border-radius:14px}",
+      "#zs .q li.a::before{background:"+P+";border-color:"+P+"}#zs .q .st.f{color:"+PI+";border-color:"+PI+"}#zs .q{border-radius:14px}",
+      "#zs .go{background:"+P+";border-radius:12px}#zst .nx{background:"+P+";border-radius:12px}#zst .hole{border-radius:14px}#zst .bub{border-radius:18px}",
+      "#zsy .nx{background:"+P+"}#zsy .pg i{background:"+P+"}#zsy .pk{border:1px solid #E6E8EC}#zsy .pk.on{border-color:"+P+";box-shadow:none}",
+      "#zsy .end button{border:1px solid "+P+";color:"+PI+"}#zsy .end .main{background:"+P+";color:#fff}"
+    ].join("\n");
+    function 글(root){ var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null,false), n; while((n=w.nextNode())){ if(n.nodeValue.indexOf("합격전략")>=0) n.nodeValue=n.nodeValue.replace(/합격전략/g,"합격 전략"); } }
+    function 말(){
+      document.querySelectorAll(".zs-fab,.zs-btn").forEach(function(el){ 글(el); });
+      var h=document.getElementById("zs-host");
+      if(h && h.shadowRoot){
+        if(!h.shadowRoot.getElementById("mj-ov")){ var st=document.createElement("style"); st.id="mj-ov"; st.textContent=덮개; h.shadowRoot.appendChild(st); }
+        글(h.shadowRoot);
+      }
+    }
+    new MutationObserver(말).observe(document.documentElement,{childList:true,subtree:true}); 말();
+  })();
   boot().catch(e => { $view.innerHTML = `<p class="sub">자료를 못 불러왔습니다: ${esc(e.message)}</p>`; });
 })();

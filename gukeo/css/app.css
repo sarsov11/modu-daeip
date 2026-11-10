@@ -358,3 +358,53 @@ body:has(.tq-bar) .passage { max-height: calc(100vh - 230px); }
 @media (min-width: 960px) { .q-panel .tq-omr { position: sticky; top: 70px; z-index: 6; } }
 @media (max-width: 959px) { .q-panel .tq-omr { display: none; } .q-panel .tq-omr.is-open { display: block; position: fixed; left: 12px; right: 12px; bottom: 84px; z-index: 50; max-height: 60vh; overflow: auto; margin: 0; } }
 .tq-omr-row.is-todo .tq-qn::before { content: "• "; color: var(--pt); }
+
+/* ════════ 전 화면 정돈 (1110) — 화면표준 14절: 글자 26·20·16·14·13·11.5 · 굵기 500~800 · 모서리 18·14·12·999·50% ════════ */
+html body .zs-fab, html body.notab .zs-fab { display: none !important; }
+:root, [data-skin="paper"] { --hl: rgba(229, 32, 46, .16); --hl-strong: #E5202E; }
+header.top .logo { font-size: 16px; }
+header.top .mark { border-radius: 12px; font-weight: 800; }
+header.top .gridb, header.top .back, header.top .xb { font-weight: 700; }
+.btn.primary, .btn.red { border-radius: 12px; font: 800 16px/1 var(--font-ui); }
+h1 { font-weight: 800; }
+.dbig { font: 800 26px/1.2 var(--font-ui); }
+.dbig small { font-size: 13px; }
+.today h3 { font-weight: 800; font-size: 20px; }
+.today .tsum { font-size: 14px; }
+.today .stp .n { font-weight: 800; font-size: 14px; }
+.today .stp .tx b { font-size: 16px; }
+.today .stp .tx span, .today .stp .m, .li .d, .stat2 span { font-size: 13px; }
+.stat2 b { font: 800 20px/1.2 var(--font-ui); }
+.li .t { font-size: 16px; }
+.recpill { font-size: 11.5px; font-weight: 800; }
+.setcard .w { display: flex; flex-wrap: wrap; gap: 2px 8px; font-size: 14px; }
+.setcard .w span + span::before { content: "· "; }
+.passage .meta .wk + .wk::before { content: "· "; }
+.ex .src { display: flex; flex-wrap: wrap; gap: 2px 8px; font-size: 13px; }
+.ex .src span + span::before { content: "· "; }
+html body .tq-coach p { color: #4B5563; }
+html body .tq-coach-off { color: #5F6670; }
+header.top .logo b { font-weight: 800; }
+html body .dg *, html body .dg-dtext { font-size: 14px !important; }
+html body .dg .dg-vsb { font-size: 13px !important; }
+html body .dg .dg-term, html body .dg b, html body .dg .dg-n { font-weight: 800; }
+.how { font-size: 14px; }
+.chip { font-size: 13px; }
+.btn { font-size: 14px; }
+html body .tm-next s { font-size: 14px; }
+html body .tq-coach p { font-weight: 500; }
+header.top .ttl { font-size: 16px; }
+header.top .back { font-size: 26px; }
+.passage .meta, .passage .meta span { font-size: 13px; }
+.passage mark, .passage .ln, .passage .ln.picked { border-radius: 0; }
+.step b, .q-panel .step b { font-weight: 800; }
+.tq-exp-box .verdict, .tq-exp-box .verdict b, .result .verdict { font-size: 16px; font-weight: 800; }
+.tq-con, .tq-con span { font: 500 14px/1.6 var(--font-ui); }
+.def { font-size: 16px; }
+.how b { font-size: 13px; }
+.tq-exp-box { font-size: 14px; }
+/* 오답 표시: 테두리 + 옅은 바탕 + ✕ */
+.tq-ox button.is-no::before { content: "✕ "; font-size: 20px; }
+.tq-choice.is-no { padding: 4px 10px; border-radius: 14px; background: color-mix(in srgb, var(--tq-no) 8%, #fff); box-shadow: 0 0 0 1.5px var(--tq-no); }
+.tq-choice.is-no .tq-t::after { content: " ✕"; font-weight: 800; }
+.sheet { border-radius: 18px; margin-bottom: 12px; }
