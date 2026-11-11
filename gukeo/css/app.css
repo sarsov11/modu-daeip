@@ -8,42 +8,42 @@
 :root, [data-skin="paper"] {
   --bg: #F6F4EE; --surface: #FFFFFF; --surface-2: #EFECE3; --line: #DEDAD0;
   --ink: #1D1F24; --ink-2: #565B66; --ink-3: #8A8E98;
-  --accent: #1E4FD8; --accent-ink: #FFFFFF; --accent-soft: #E6ECFD;
-  --hl: rgba(255, 214, 10, .55); --hl-strong: #FFD60A; --pick: rgba(30, 79, 216, .14);
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0;
+  --hl: rgba(15, 118, 110, .20); --hl-strong: #0F766E; --pick: rgba(15, 118, 110, .14);
   --ok: #17784C; --ok-soft: #E1F3EA; --no: #C23A22; --no-soft: #FCE7E2;
-  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 2px 10px rgba(20,24,40,.05);
+  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 2px 10px rgba(18, 48, 45, .05);
   --text-bg: #FFFFFF;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"])[data-skin="paper"], :root:not([data-theme="light"]):not([data-skin]) {
     --bg: #131417; --surface: #1C1E23; --surface-2: #24272E; --line: #33363F;
     --ink: #ECEDF0; --ink-2: #A8ACB6; --ink-3: #7A7F8A;
-    --accent: #86A4FF; --accent-ink: #0B1230; --accent-soft: #222B48;
-    --hl: rgba(255, 214, 10, .30); --hl-strong: #E9C300; --pick: rgba(134, 164, 255, .20);
+    --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: #123F3B;
+    --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; --pick: rgba(94, 196, 186, .20);
     --ok: #5BD69A; --ok-soft: #183327; --no: #FF8A70; --no-soft: #3A1F19; --text-bg: #191B1F;
   }
 }
 :root[data-theme="dark"][data-skin="paper"] {
   --bg: #131417; --surface: #1C1E23; --surface-2: #24272E; --line: #33363F;
   --ink: #ECEDF0; --ink-2: #A8ACB6; --ink-3: #7A7F8A;
-  --accent: #86A4FF; --accent-ink: #0B1230; --accent-soft: #222B48;
-  --hl: rgba(255, 214, 10, .30); --hl-strong: #E9C300; --pick: rgba(134, 164, 255, .20);
+  --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: #123F3B;
+  --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; --pick: rgba(94, 196, 186, .20);
   --ok: #5BD69A; --ok-soft: #183327; --no: #FF8A70; --no-soft: #3A1F19; --text-bg: #191B1F;
 }
 [data-skin="ink"] {
-  --bg: #101318; --surface: #171B22; --surface-2: #1F242D; --line: #2C323D;
+  --bg: #0F1A19; --surface: #15211F; --surface-2: #1B2B29; --line: #2A3D3A;
   --ink: #E9E4D8; --ink-2: #A9A493; --ink-3: #79766B;
-  --accent: #E0B252; --accent-ink: #1A1408; --accent-soft: #2E2715;
-  --hl: rgba(224, 178, 82, .30); --hl-strong: #E0B252; --pick: rgba(233, 228, 216, .10);
+  --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: #123F3B;
+  --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; --pick: rgba(233, 228, 216, .10);
   --ok: #8FD3A6; --ok-soft: #1B2D22; --no: #F08C7A; --no-soft: #36201C;
   --shadow: 0 0 0 1px rgba(255,255,255,.03), 0 8px 24px rgba(0,0,0,.35);
-  --text-bg: #13171D;
+  --text-bg: #111D1C;
 }
 [data-skin="marker"] {
   --bg: #FFFDF5; --surface: #FFFFFF; --surface-2: #FFF5D6; --line: #1D1F24;
   --ink: #111111; --ink-2: #3D3D3D; --ink-3: #6E6E6E;
-  --accent: #FF4D2E; --accent-ink: #FFFFFF; --accent-soft: #FFE3DC;
-  --hl: rgba(132, 255, 120, .65); --hl-strong: #5CFF4A; --pick: rgba(120, 190, 255, .35);
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0;
+  --hl: rgba(15, 118, 110, .20); --hl-strong: #0F766E; --pick: rgba(15, 118, 110, .14);
   --ok: #0F7A3A; --ok-soft: #D9F7E3; --no: #D3261A; --no-soft: #FFE1DD;
   --shadow: 3px 3px 0 #111111;
   --r-m: 12px; --r-l: 16px;
@@ -180,18 +180,18 @@ h2 { font-size: 19px; letter-spacing: -.02em; margin: 26px 0 10px; }
 
 /* ════════ 화면표준_1110 (테라러닝_허브\공용\디자인\화면표준_1110.md) — 흰 화면 기준. 브랜드마다 다른 것은 포인트 색 하나(대입 빨강) ════════ */
 :root, [data-skin="paper"] {
-  --pt: #E5202E; --pt-2: #C8101D; --pt-soft: color-mix(in srgb, #E5202E 9%, #fff); --pt-ink: color-mix(in srgb, #E5202E 78%, #111419);
+  --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: color-mix(in srgb, #0F766E 9%, #fff); --pt-ink: color-mix(in srgb, #0F766E 78%, #12302D);
   --bg: #FFFFFF; --bg2: #F7F8FA; --surface: #FFFFFF; --surface-2: #F7F8FA; --line: #E6E8EC; --text-bg: #FFFFFF;
-  --ink: #111419; --ink-2: #4B5563; --ink-3: #5F6670;
-  --accent: #E5202E; --accent-ink: #FFFFFF; --accent-soft: color-mix(in srgb, #E5202E 9%, #fff); --pick: rgba(229, 32, 46, .12);
+  --ink: #12302D; --ink-2: #4B5563; --ink-3: #5F6670;
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: color-mix(in srgb, #0F766E 9%, #fff); --pick: rgba(15, 118, 110, .12);
   --ok: #16B364; --ok-soft: rgba(22, 179, 100, .10); --no: #E5322D; --no-soft: rgba(229, 50, 45, .08);
-  --shadow: 0 1px 2px rgba(17,20,25,.05), 0 0 0 1px #E6E8EC;
+  --shadow: 0 1px 2px rgba(18, 48, 45, .05), 0 0 0 1px #E6E8EC;
 }
 /* 밤·먹색·형광펜 스킨: 색만 그 스킨 값, 포인트는 대입 빨강 계열 */
-[data-skin="ink"] { --pt: #FF6B74; --pt-2: #E5202E; --pt-soft: color-mix(in srgb, #FF6B74 16%, #171B22); --pt-ink: #FF8A91; --accent: #FF6B74; --accent-ink: #1A0A0B; --accent-soft: color-mix(in srgb, #FF6B74 16%, #171B22); }
-[data-skin="marker"] { --pt: #E5202E; --pt-2: #C8101D; --pt-soft: #FFE1DD; --pt-ink: #C8101D; --accent: #E5202E; --accent-soft: #FFE1DD; --shadow: 0 1px 2px rgba(17,20,25,.05), 0 0 0 1px #1D1F24; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-skin="paper"] { --pt: #FF6B74; --pt-2: #E5202E; --pt-soft: color-mix(in srgb, #FF6B74 16%, #1C1E23); --pt-ink: #FF8A91; --accent: #FF6B74; --accent-ink: #1A0A0B; --accent-soft: color-mix(in srgb, #FF6B74 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; } }
-:root[data-theme="dark"][data-skin="paper"] { --pt: #FF6B74; --pt-2: #E5202E; --pt-soft: color-mix(in srgb, #FF6B74 16%, #1C1E23); --pt-ink: #FF8A91; --accent: #FF6B74; --accent-ink: #1A0A0B; --accent-soft: color-mix(in srgb, #FF6B74 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; }
+[data-skin="ink"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #15211F); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #15211F); }
+[data-skin="marker"] { --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A; --accent: #0F766E; --accent-soft: #E3F2F0; --shadow: 0 1px 2px rgba(18, 48, 45, .05), 0 0 0 1px #1D1F24; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-skin="paper"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; } }
+:root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; }
 
 body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); letter-spacing: -.01em; font-weight: 500; }
 body.notab { padding-bottom: 0; }
@@ -228,7 +228,7 @@ body.notab .tab { display: none; }
   header.top .in { max-width: 960px; }
   body.wide header.top .in { max-width: 1240px; }
 }
-html body .zs-fab { right: 16px; bottom: calc(62px + env(safe-area-inset-bottom) + 12px) !important; height: 38px; padding: 0 14px 0 11px; border: 1.5px solid var(--pt); color: var(--pt-ink); background: var(--surface); box-shadow: 0 6px 18px -8px rgba(17,20,25,.22); }
+html body .zs-fab { right: 16px; bottom: calc(62px + env(safe-area-inset-bottom) + 12px) !important; height: 38px; padding: 0 14px 0 11px; border: 1.5px solid var(--pt); color: var(--pt-ink); background: var(--surface); box-shadow: 0 6px 18px -8px rgba(18, 48, 45, .22); }
 html body .zs-fab svg { color: var(--pt); }
 html body.notab .zs-fab { display: none !important; }
 @media (min-width: 960px) { html body .zs-fab { bottom: 20px !important; } }
@@ -319,7 +319,7 @@ h2.sec { margin-top: 26px; }
 #plansum { font:700 14px/1.4 var(--font-ui); margin:4px 0 8px; }
 
 /* 10절 추천 표시 — 22px 알약 · 포인트 단색 · 흰 글자 800 11.5px */
-.recpill{display:inline-flex;align-items:center;height:22px;padding:0 8px;margin-left:8px;border-radius:999px;background:var(--pt,#E5202E);color:#fff;font:800 11.5px/22px var(--font-ui,inherit);font-style:normal;vertical-align:middle}
+.recpill{display:inline-flex;align-items:center;height:22px;padding:0 8px;margin-left:8px;border-radius:999px;background:var(--pt,#0F766E);color:#fff;font:800 11.5px/22px var(--font-ui,inherit);font-style:normal;vertical-align:middle}
 /* 11절 합격 지도 */
 #jido{margin-top:0}
 body.wide #jido .tm{max-width:1180px}
@@ -328,17 +328,17 @@ body.wide #jido .tm{max-width:1180px}
 .q-panel { gap: 0; }
 .q-panel .tq-prog { margin: 0 0 22px; }
 .q-panel .tq-stem { margin: 0 0 24px; }
-.q-panel .tq-more { margin: -6px 0 18px; } .q-panel .tq-more summary { font: 500 14px/1.4 var(--font-ui); color: #5B6B82; cursor: pointer; margin-bottom: 8px; }
+.q-panel .tq-more { margin: -6px 0 18px; } .q-panel .tq-more summary { font: 500 14px/1.4 var(--font-ui); color: #587370; cursor: pointer; margin-bottom: 8px; }
 .tq-box { white-space: pre-wrap; }
 .tq-claim { cursor: default; margin-bottom: 14px; }
 .tq-claim:hover .tq-n { border-color: #8493A8; }
-.tq-hint { margin: 0 0 12px; font: 500 14px/1.4 var(--font-ui); color: #5B6B82; }
+.tq-hint { margin: 0 0 12px; font: 500 14px/1.4 var(--font-ui); color: #587370; }
 .tq-ox.one { grid-template-columns: 1fr; }
 .tq-ox button.is-pick { border-color: var(--pt); color: var(--pt-ink); background: var(--pt-soft); }
 .tq-ox button:disabled { cursor: default; }
 .q-panel .step { margin-top: 12px; }
 .q-panel > .actions { margin-top: 14px; }
-.tq-pts { font: 500 13px/1 var(--font-ui); color: #5B6B82; }
+.tq-pts { font: 500 13px/1 var(--font-ui); color: #587370; }
 .tq-q { margin-bottom: 34px; scroll-margin-top: 70px; }
 .tq-q .tq-choices { margin-top: 4px; }
 .tq-q .exp { margin: 2px 0 6px; }
@@ -361,7 +361,7 @@ body:has(.tq-bar) .passage { max-height: calc(100vh - 230px); }
 
 /* ════════ 전 화면 정돈 (1110) — 화면표준 14절: 글자 26·20·16·14·13·11.5 · 굵기 500~800 · 모서리 18·14·12·999·50% ════════ */
 html body .zs-fab, html body.notab .zs-fab { display: none !important; }
-:root, [data-skin="paper"] { --hl: rgba(229, 32, 46, .16); --hl-strong: #E5202E; }
+:root, [data-skin="paper"] { --hl: rgba(15, 118, 110, .16); --hl-strong: #0F766E; }
 header.top .logo { font-size: 16px; }
 header.top .mark { border-radius: 12px; font-weight: 800; }
 header.top .gridb, header.top .back, header.top .xb { font-weight: 700; }
@@ -408,3 +408,23 @@ header.top .back { font-size: 26px; }
 .tq-choice.is-no { padding: 4px 10px; border-radius: 14px; background: color-mix(in srgb, var(--tq-no) 8%, #fff); box-shadow: 0 0 0 1.5px var(--tq-no); }
 .tq-choice.is-no .tq-t::after { content: " ✕"; font-weight: 800; }
 .sheet { border-radius: 18px; margin-bottom: 12px; }
+
+/* 청록 단일톤 1111h (화면표준 16절): 포인트는 청록 하나, 정답·오답 채점 표시만 초록·빨강 */
+html:root, html:root[data-skin="paper"], html:root[data-skin="marker"] {
+  --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A;
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0; --pick: rgba(15, 118, 110, .12);
+  --hl: rgba(15, 118, 110, .16); --hl-strong: #0F766E;
+  --ink: #12302D; --line: #DCE7E5;
+}
+@media (prefers-color-scheme: dark) { html:root:not([data-theme="light"]) { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; } }
+html:root[data-theme="dark"], html:root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; }
+
+/* 청록 단일톤 1111h (화면표준 16절): 포인트는 청록 하나, 정답·오답 채점 표시만 초록·빨강 */
+html:root, html:root[data-skin="paper"], html:root[data-skin="marker"] {
+  --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A;
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0; --pick: rgba(15, 118, 110, .12);
+  --hl: rgba(15, 118, 110, .16); --hl-strong: #0F766E;
+  --ink: #12302D; --line: #DCE7E5;
+}
+@media (prefers-color-scheme: dark) { html:root:not([data-theme="light"]) { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; } }
+html:root[data-theme="dark"], html:root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; }

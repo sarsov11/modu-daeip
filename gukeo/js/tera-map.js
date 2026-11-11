@@ -21,8 +21,8 @@
   if (window.TERA_MAP && window.TERA_MAP.version >= 3.4) return;
   var d = document, styled = false;
   var CSS = [
-    ".tm{--p:var(--pt,var(--t-app,var(--cta,#E5202E)));--pi:color-mix(in srgb,var(--p) 80%,#111419);--pf:color-mix(in srgb,var(--p) 20%,#fff);",
-    " color:#111419;font:500 15px/1.35 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;letter-spacing:-.02em;position:relative;max-width:1180px;margin:0 auto}",
+    ".tm{--p:var(--pt,var(--t-app,var(--cta,#0F766E)));--pi:color-mix(in srgb,var(--p) 80%,#12302D);--pf:color-mix(in srgb,var(--p) 20%,#fff);",
+    " color:#12302D;font:500 15px/1.35 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;letter-spacing:-.02em;position:relative;max-width:1180px;margin:0 auto}",
     ".tm *{box-sizing:border-box}.tm i,.tm em,.tm s{font-style:normal;text-decoration:none}.tm button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}",
     /* 머리 한 줄: 제목 · D-day · 전체 진척 · 다음 세 개 */
     ".tm-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:18px}",
@@ -46,7 +46,7 @@
     /* 타일: 크기는 전부 같다. 채움 = 진척 */
     ".tm-t{position:relative;min-width:0;height:60px;padding:0 10px 0 12px;border:0;border-radius:14px;overflow:hidden;text-align:left;",
     " background:linear-gradient(90deg,var(--pf) calc(var(--v)*1%),#F1F3F6 0);display:flex;align-items:center;gap:8px;transition:transform .12s,box-shadow .15s}",
-    ".tm-t:hover{transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(17,20,25,.3)}",
+    ".tm-t:hover{transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(18, 48, 45, .3)}",
     ".tm-tx{flex:1;min-width:0}",
     ".tm-nm{display:block;font-weight:700;font-size:14px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
     ".tm-av{display:block;font-weight:600;font-size:11.5px;line-height:1.2;color:#5F6670;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tm-first .tm-av{display:none}",
@@ -60,7 +60,7 @@
     ".tm-t.tm-dim{opacity:.42}",
     ".tm-t.tm-rec{box-shadow:0 0 0 2px var(--p) inset}",
     ".tm-t.tm-first{box-shadow:0 0 0 3px var(--p) inset,0 10px 22px -12px var(--p)}",
-    ".tm-t.tm-on{box-shadow:0 0 0 3px #111419 inset}",
+    ".tm-t.tm-on{box-shadow:0 0 0 3px #12302D inset}",
     ".tm-tag{flex:none;height:22px;padding:0 8px;border-radius:999px;background:var(--p);color:#fff;font-weight:800;font-size:11.5px;line-height:22px}",
     /* 나안: 과목이 세로 칸 */
     ".tm-board .tm-lanes{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;align-items:start}",
@@ -76,7 +76,7 @@
     ".tm-c{break-inside:avoid;margin:0 0 8px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px #E6E8EC;overflow:hidden}",
     ".tm-c.tm-crec{box-shadow:0 0 0 2px var(--p)}.tm-c.tm-cfirst{box-shadow:0 0 0 3px var(--p),0 12px 24px -14px var(--p)}.tm-c.tm-cdim{opacity:.42}",
     ".tm-dt .tm-t{width:100%;height:52px;border-radius:0;box-shadow:none!important;transform:none!important;background:linear-gradient(90deg,var(--pf) calc(var(--v)*1%),#F6F7F9 0)}",
-    ".tm-dt .tm-t.tm-done{background:var(--p)}.tm-dt .tm-t.tm-on{background:#111419;color:#fff}.tm-dt .tm-t.tm-on .tm-pc,.tm-dt .tm-t.tm-on .tm-q{color:#fff}",
+    ".tm-dt .tm-t.tm-done{background:var(--p)}.tm-dt .tm-t.tm-on{background:#12302D;color:#fff}.tm-dt .tm-t.tm-on .tm-pc,.tm-dt .tm-t.tm-on .tm-q{color:#fff}",
     ".tm-q{flex:none;font-weight:600;font-size:11.5px;line-height:1;color:#5F6670;white-space:nowrap}.tm-done .tm-q{color:rgba(255,255,255,.85)}",
     ".tm-ll{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;padding:4px}",
     ".tm-l{display:flex;align-items:center;gap:8px;width:100%;height:28px;padding:0 8px 0 10px;border:0;border-radius:12px;text-align:left;background:linear-gradient(90deg,var(--pf) calc(var(--v)*1%),transparent 0)}",
@@ -98,7 +98,7 @@
     " .tm-lanes,.tm-dt .tm-lanes{min-width:0}.tm-lane,.tm-dt .tm-lane{grid-template-columns:minmax(0,1fr);min-width:0}",
     " .tm-lh,.tm-dt .tm-lh{flex-wrap:wrap;row-gap:4px;min-width:0}.tm-lh b,.tm-dt .tm-lh b{white-space:normal;min-width:0;word-break:keep-all;overflow-wrap:anywhere}.tm-lh i,.tm-dt .tm-lh i{min-width:60px}}",
     /* 고른 타일 판 */
-    ".tm-pv{position:fixed;z-index:2147480000;right:16px;top:76px;bottom:16px;width:340px;border-radius:18px;background:#fff;box-shadow:0 26px 60px -28px rgba(17,20,25,.34),0 0 0 1px #E6E8EC;padding:18px;display:none;flex-direction:column;gap:12px}",
+    ".tm-pv{position:fixed;z-index:2147480000;right:16px;top:76px;bottom:16px;width:340px;border-radius:18px;background:#fff;box-shadow:0 26px 60px -28px rgba(18, 48, 45, .34),0 0 0 1px #E6E8EC;padding:18px;display:none;flex-direction:column;gap:12px}",
     ".tm-pv.tm-open{display:flex}",
     ".tm-h{display:flex;align-items:center;gap:8px}.tm-h b{flex:1;font-weight:800;font-size:20px;line-height:1.25;letter-spacing:-.03em}",
     ".tm-x{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #D3D7DD;background:#fff;font-size:20px;line-height:1}",
