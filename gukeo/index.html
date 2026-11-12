@@ -30,6 +30,8 @@
 (function(){function fix(){document.querySelectorAll(".zs-btn,.zs-fab,#zs,#zsy").forEach(function(e){var w=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),n;while(n=w.nextNode()){if(n.parentNode.className==="t"||e.classList.contains("zs-btn")||e.classList.contains("zs-fab")){if(n.nodeValue==="합격전략")n.nodeValue="합격 전략"}}});document.querySelectorAll('[aria-label="합격전략"]').forEach(function(e){e.setAttribute("aria-label","합격 전략")})}
 new MutationObserver(fix).observe(document.documentElement,{childList:true,subtree:true});fix()})();</script>
 <script src="js/supa.config.js"></script>
+<script src="js/auth.js?v=09644262" data-service="gukeo" data-prefixes="modu-kor-,tera_daeip_,terra.strat."></script>
 <script src="js/research.js" data-service="gukeo"></script>
+<script src="js/loginentry.js?v=cfbafab8" data-mode="after" data-after="5"></script>
 </body>
 </html>
