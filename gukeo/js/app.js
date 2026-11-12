@@ -87,10 +87,11 @@
     { k: 'home', n: '오늘', go: '#/home', i: SV('<path d="M4 11.2 12 4l8 7.2V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/>') },
     { k: 'map', n: '합격 지도', go: '#/map', i: SV('<circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="8" cy="18" r="2.4"/><circle cx="18" cy="17" r="2.4"/><path d="M8.2 7 15.8 7M7 8.2 7.6 15.6M16.6 9.2 8.8 16.6M18 9.4v5.2"/>') },
     { k: 'sets', n: '기출', go: '#/sets', i: SV('<path d="M13 3 5.5 13.5H11L10 21l7.5-10.5H12z"/>') },
+    { k: 'vocab', n: '고전 어휘', go: '#/vocab', i: SV('<path d="M5 4.5h9a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M8 9h6M8 12.5h4"/>') },
     { k: 'records', n: '기록', go: '#/records', i: SV('<path d="M5 19.5V12M12 19.5V5M19 19.5V9"/>') },
     { k: 'settings', n: '설정', go: '#/settings', i: SV('<circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>') }
   ];
-  const HNAV = [['home', '오늘', '#/home'], ['map', '합격 지도', '#/map'], ['sets', '기출', '#/sets'], ['records', '기록', '#/records'], ['settings', '설정', '#/settings']];
+  const HNAV = [['home', '오늘', '#/home'], ['map', '합격 지도', '#/map'], ['sets', '기출', '#/sets'], ['vocab', '고전 어휘', '#/vocab'], ['records', '기록', '#/records'], ['settings', '설정', '#/settings']];
   function chrome(o) {
     o = o || {};
     document.body.classList.toggle('notab', !!o.notab);
@@ -111,6 +112,7 @@
     if (p === 'sets') return viewSets();
     if (p === 'set') return viewSet(decodeURIComponent(a));
     if (p === 'records') return viewRecords();
+    if (p === 'vocab' && window.viewVocab) { nav('vocab'); return window.viewVocab(a); }      // 고전 어휘장(js/vocab.js, 11-11)
     if (p === 'settings') return viewSettings();
     if (p === 'grammar' && a === 'c') return viewGConcept(decodeURIComponent(b));
     if (p === 'grammar' && a === 'drill') return viewGDrill(decodeURIComponent(b || ''));
