@@ -254,7 +254,7 @@
 
   // ───── 드릴 ─────
   let D = null;
-  // ───── 문제 화면 공용 부품(tera-q.js?v=1111g · tera-pad.js) — 화면표준 12절 ─────
+  // ───── 문제 화면 공용 부품(tera-q.js?v=1112b · tera-pad.js) — 화면표준 12절 ─────
   const TQI = {
     help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.5a2.4 2.4 0 1 1 3.3 2.2c-.7.3-1 .8-1 1.6M12 16.5h.01" stroke-linecap="round"/></svg>',
     note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 6.5C10.2 5 7.6 4.5 4.5 4.8v13c3.1-.3 5.7.2 7.5 1.7 1.8-1.5 4.4-2 7.5-1.7v-13c-3.1-.3-5.7.2-7.5 1.7zM12 6.5v13"/></svg>',
@@ -321,9 +321,9 @@
   function tqCoach() {
     if (!window.TERA_Q) return;
     const st = [
-      ['.tq-term', 'term', '띠가 있는 말을 누르면 뜻이 나와요', '옅은 띠는 개념어예요. 번호 줄 단추로 켜고 끕니다.'],
-      ['.tq-tool[data-t="unsure"]', 'unsure', '헷갈리면 표시해 두세요', '표시한 선지는 다음 드릴에서 틀린 선지처럼 먼저 나옵니다.'],
-      ['.tq-tool[data-t="pen"]', 'pen', '펜으로 문제 위에 바로 쓸 수 있어요', '펜을 누르면 화면에 필기합니다. 끝내려면 다시 누르세요.']
+      ['.tq-term', 'term', '띠가 있는 말을 누르면 뜻이 나와요', '번호 줄 단추로 켜고 끌 수 있어요.'],
+      ['.tq-tool[data-t="unsure"]', 'unsure', '헷갈리면 표시해 두세요', '표시한 선지는 다음 드릴에 먼저 나와요.'],
+      ['.tq-tool[data-t="pen"]', 'pen', '펜으로 문제 위에 바로 쓸 수 있어요', '다시 누르면 필기가 끝나요.']
     ];
     const run = k => { for (; k < st.length; k++) { const el = document.querySelector(st[k][0]); if (!el) continue; const kk = k; if (window.TERA_Q.coach(el, { key: st[kk][1], title: st[kk][2], text: st[kk][3], onDone: () => run(kk + 1) })) return; } };
     setTimeout(() => run(0), 450);

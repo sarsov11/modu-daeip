@@ -271,9 +271,9 @@
   var PP = "var(--pt,var(--t-app,var(--cta,#0F766E)))";
   var PCSS = "#tpen-cv{position:fixed;left:0;top:0;width:100%;height:100%;margin:0;padding:0;border:0;z-index:2147480500;touch-action:none;cursor:crosshair;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}" +
     "html.tpen-on .tq-bar{z-index:2147480550!important}" +                       /* 아래 줄(헷갈림·해설·펜·다음)이 지면 위에서 눌린다 — 문제 화면 공용 부품 .tq-bar 와 맞물림 */
-    "#tpen-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom));z-index:2147480600;display:flex;align-items:center;gap:2px;height:58px;max-width:calc(100vw - 16px);overflow-x:auto;padding:0 8px;border-radius:14px;background:#fff;box-shadow:0 14px 34px -14px rgba(18, 48, 45, .38),0 0 0 1px #E6E8EC;font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif}" +
+    "#tpen-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom));z-index:2147480600;display:flex;align-items:center;gap:2px;height:58px;max-width:calc(100vw - 16px);overflow-x:auto;padding:0 8px;border-radius:14px;background:#fff;box-shadow:0 14px 34px -14px rgba(17,20,25,.38),0 0 0 1px #E6E8EC;font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif}" +
     "@media(min-width:900px){#tpen-bar{left:auto;right:12px;transform:none;height:50px;max-width:min(560px,calc(100vw - 24px))}#tpen-bar button{height:40px!important;font-size:12.5px!important;padding:0 8px!important}}" +
-    "#tpen-bar button{flex:none;height:44px;min-width:44px;padding:0 10px;border:0;border-radius:12px;background:none;font-weight:700;font-size:13px;color:#47605C;cursor:pointer;white-space:nowrap}" +
+    "#tpen-bar button{flex:none;height:44px;min-width:44px;padding:0 10px;border:0;border-radius:12px;background:none;font-weight:700;font-size:13px;color:#475569;cursor:pointer;white-space:nowrap}" +
     "#tpen-bar button.on{background:color-mix(in srgb," + PP + " 12%,#fff);color:color-mix(in srgb," + PP + " 78%,#12302D)}" +
     "#tpen-bar i{flex:none;width:1px;height:26px;background:#E6E8EC;margin:0 4px}#tpen-bar .end{color:" + PP + "}";
   function penRect() { return pcv.getBoundingClientRect(); }
