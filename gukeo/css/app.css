@@ -11,7 +11,7 @@
   --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0;
   --hl: rgba(15, 118, 110, .20); --hl-strong: #0F766E; --pick: rgba(15, 118, 110, .14);
   --ok: #17784C; --ok-soft: #E1F3EA; --no: #C23A22; --no-soft: #FCE7E2;
-  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 2px 10px rgba(18, 48, 45, .05);
+  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 2px 10px rgba(17,20,25, .05);
   --text-bg: #FFFFFF;
 }
 @media (prefers-color-scheme: dark) {
@@ -180,16 +180,16 @@ h2 { font-size: 19px; letter-spacing: -.02em; margin: 26px 0 10px; }
 
 /* ════════ 화면표준_1110 (테라러닝_허브\공용\디자인\화면표준_1110.md) — 흰 화면 기준. 브랜드마다 다른 것은 포인트 색 하나(대입 빨강) ════════ */
 :root, [data-skin="paper"] {
-  --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: color-mix(in srgb, #0F766E 9%, #fff); --pt-ink: color-mix(in srgb, #0F766E 78%, #12302D);
+  --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: color-mix(in srgb, #0F766E 9%, #fff); --pt-ink: color-mix(in srgb, #0F766E 78%, #111419);
   --bg: #FFFFFF; --bg2: #F7F8FA; --surface: #FFFFFF; --surface-2: #F7F8FA; --line: #E6E8EC; --text-bg: #FFFFFF;
-  --ink: #12302D; --ink-2: #4B5563; --ink-3: #5F6670;
+  --ink: #111419; --ink-2: #4B5563; --ink-3: #5F6670;
   --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: color-mix(in srgb, #0F766E 9%, #fff); --pick: rgba(15, 118, 110, .12);
   --ok: #16B364; --ok-soft: rgba(22, 179, 100, .10); --no: #E5322D; --no-soft: rgba(229, 50, 45, .08);
-  --shadow: 0 1px 2px rgba(18, 48, 45, .05), 0 0 0 1px #E6E8EC;
+  --shadow: 0 1px 2px rgba(17,20,25, .05), 0 0 0 1px #E6E8EC;
 }
 /* 밤·먹색·형광펜 스킨: 색만 그 스킨 값, 포인트는 대입 빨강 계열 */
 [data-skin="ink"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #15211F); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #15211F); }
-[data-skin="marker"] { --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A; --accent: #0F766E; --accent-soft: #E3F2F0; --shadow: 0 1px 2px rgba(18, 48, 45, .05), 0 0 0 1px #1D1F24; }
+[data-skin="marker"] { --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A; --accent: #0F766E; --accent-soft: #E3F2F0; --shadow: 0 1px 2px rgba(17,20,25, .05), 0 0 0 1px #1D1F24; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-skin="paper"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; } }
 :root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #0F766E; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --shadow: 0 0 0 1px #33363F; }
 
@@ -228,7 +228,7 @@ body.notab .tab { display: none; }
   header.top .in { max-width: 960px; }
   body.wide header.top .in { max-width: 1240px; }
 }
-html body .zs-fab { right: 16px; bottom: calc(62px + env(safe-area-inset-bottom) + 12px) !important; height: 38px; padding: 0 14px 0 11px; border: 1.5px solid var(--pt); color: var(--pt-ink); background: var(--surface); box-shadow: 0 6px 18px -8px rgba(18, 48, 45, .22); }
+html body .zs-fab { right: 16px; bottom: calc(62px + env(safe-area-inset-bottom) + 12px) !important; height: 38px; padding: 0 14px 0 11px; border: 1.5px solid var(--pt); color: var(--pt-ink); background: var(--surface); box-shadow: 0 6px 18px -8px rgba(17,20,25, .22); }
 html body .zs-fab svg { color: var(--pt); }
 html body.notab .zs-fab { display: none !important; }
 @media (min-width: 960px) { html body .zs-fab { bottom: 20px !important; } }
@@ -328,17 +328,17 @@ body.wide #jido .tm{max-width:1180px}
 .q-panel { gap: 0; }
 .q-panel .tq-prog { margin: 0 0 22px; }
 .q-panel .tq-stem { margin: 0 0 24px; }
-.q-panel .tq-more { margin: -6px 0 18px; } .q-panel .tq-more summary { font: 500 14px/1.4 var(--font-ui); color: #587370; cursor: pointer; margin-bottom: 8px; }
+.q-panel .tq-more { margin: -6px 0 18px; } .q-panel .tq-more summary { font: 500 14px/1.4 var(--font-ui); color: #5F6670; cursor: pointer; margin-bottom: 8px; }
 .tq-box { white-space: pre-wrap; }
 .tq-claim { cursor: default; margin-bottom: 14px; }
 .tq-claim:hover .tq-n { border-color: #8493A8; }
-.tq-hint { margin: 0 0 12px; font: 500 14px/1.4 var(--font-ui); color: #587370; }
+.tq-hint { margin: 0 0 12px; font: 500 14px/1.4 var(--font-ui); color: #5F6670; }
 .tq-ox.one { grid-template-columns: 1fr; }
 .tq-ox button.is-pick { border-color: var(--pt); color: var(--pt-ink); background: var(--pt-soft); }
 .tq-ox button:disabled { cursor: default; }
 .q-panel .step { margin-top: 12px; }
 .q-panel > .actions { margin-top: 14px; }
-.tq-pts { font: 500 13px/1 var(--font-ui); color: #587370; }
+.tq-pts { font: 500 13px/1 var(--font-ui); color: #5F6670; }
 .tq-q { margin-bottom: 34px; scroll-margin-top: 70px; }
 .tq-q .tq-choices { margin-top: 4px; }
 .tq-q .exp { margin: 2px 0 6px; }
@@ -414,7 +414,7 @@ html:root, html:root[data-skin="paper"], html:root[data-skin="marker"] {
   --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A;
   --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0; --pick: rgba(15, 118, 110, .12);
   --hl: rgba(15, 118, 110, .16); --hl-strong: #0F766E;
-  --ink: #12302D; --line: #DCE7E5;
+  --ink: #111419; --line: #E5E7EB;
 }
 @media (prefers-color-scheme: dark) { html:root:not([data-theme="light"]) { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; } }
 html:root[data-theme="dark"], html:root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; }
@@ -424,7 +424,7 @@ html:root, html:root[data-skin="paper"], html:root[data-skin="marker"] {
   --pt: #0F766E; --pt-2: #0B5F59; --pt-soft: #E3F2F0; --pt-ink: #0B4F4A;
   --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E3F2F0; --pick: rgba(15, 118, 110, .12);
   --hl: rgba(15, 118, 110, .16); --hl-strong: #0F766E;
-  --ink: #12302D; --line: #DCE7E5;
+  --ink: #111419; --line: #E5E7EB;
 }
 @media (prefers-color-scheme: dark) { html:root:not([data-theme="light"]) { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; } }
 html:root[data-theme="dark"], html:root[data-theme="dark"][data-skin="paper"] { --pt: #5EC4BA; --pt-2: #7FD3CB; --pt-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --pt-ink: #8AD9D0; --accent: #5EC4BA; --accent-ink: #062321; --accent-soft: color-mix(in srgb, #5EC4BA 16%, #1C1E23); --hl: rgba(94, 196, 186, .30); --hl-strong: #5EC4BA; }

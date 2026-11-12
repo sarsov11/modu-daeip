@@ -148,7 +148,7 @@
 html.tn-with-side body{padding-right:420px}
 .tn-x{position:absolute;top:8px;right:10px;width:32px;height:32px;border:0;border-radius:50%;background:var(--surface-2,#f5f6f8);color:var(--ink,#16181d);font:900 14px/32px inherit;font-family:inherit;cursor:pointer}
 .tn-sheet .tn-x{top:12px}
-.tn-q{font-size:14px;font-weight:700;color:var(--ink-2,var(--ink,#2E4744));background:var(--surface-2,#f5f6f8);border-radius:9px;padding:8px 10px;margin:0 38px 12px 0;line-height:1.45}
+.tn-q{font-size:14px;font-weight:700;color:var(--ink-2,var(--ink,#333941));background:var(--surface-2,#f5f6f8);border-radius:9px;padding:8px 10px;margin:0 38px 12px 0;line-height:1.45}
 .tn-h{font-size:13.5px;font-weight:900;color:var(--cta,#0F766E);margin:14px 0 5px}
 .tn-q + .tn-h{margin-top:0}
 .tn-note{font-size:16.5px;line-height:1.6;font-weight:700}

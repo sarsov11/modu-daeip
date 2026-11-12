@@ -789,7 +789,7 @@
   (function(){
     var P="#0F766E", PI="#0B4F4A", PS="rgba(15, 118, 110, .10)";
     var 덮개=[
-      "#zs,#zst,#zsy{--zs-bg:#FFFFFF;--zs-card:#FFFFFF;--zs-line:#E6E8EC;--zs-red:"+P+";--zs-blue:#8AD9D0;--zs-gold:#7C818C;--zs-soft:#F1F3F6;--zs-tx:#12302D;--zs-sub:#5F6670}",
+      "#zs,#zst,#zsy{--zs-bg:#FFFFFF;--zs-card:#FFFFFF;--zs-line:#E6E8EC;--zs-red:"+P+";--zs-blue:#8AD9D0;--zs-gold:#7C818C;--zs-soft:#F1F3F6;--zs-tx:#111419;--zs-sub:#5F6670}",
       "#zs .top .t{letter-spacing:0;font-size:13px}#zs .top button{border-radius:12px}",
       "#zs section{border-radius:18px;box-shadow:none}",
       "#zs .chip{border-radius:999px;background:#F1F3F6;color:#333941}#zs .chip.r{background:"+PS+";color:"+PI+"}",

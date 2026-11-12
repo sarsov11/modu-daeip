@@ -15,9 +15,9 @@
   var d = document, root, state = { tab: "paper", key: "", opts: {} }, papers = {}, ctx, cv, strokes, cur, tool = "pen";
 
   var CSS = [
-    "#tpad{--p:var(--pt,var(--t-app,var(--cta,#0F766E)));--ps:color-mix(in srgb,var(--p) 10%,#fff);--pi:color-mix(in srgb,var(--p) 78%,#12302D);",
-    " position:fixed;left:0;right:0;bottom:0;z-index:2147481000;height:64vh;max-height:calc(100vh - 72px);background:#fff;color:#12302D;border-radius:18px 22px 0 0;",
-    " box-shadow:0 -18px 44px -18px rgba(18, 48, 45, .34),0 0 0 1px #E6E8EC;display:none;flex-direction:column;font:500 15px/1.5 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;letter-spacing:-.01em}",
+    "#tpad{--p:var(--pt,var(--t-app,var(--cta,#0F766E)));--ps:color-mix(in srgb,var(--p) 10%,#fff);--pi:color-mix(in srgb,var(--p) 78%,#111419);",
+    " position:fixed;left:0;right:0;bottom:0;z-index:2147481000;height:64vh;max-height:calc(100vh - 72px);background:#fff;color:#111419;border-radius:18px 22px 0 0;",
+    " box-shadow:0 -18px 44px -18px rgba(17,20,25, .34),0 0 0 1px #E6E8EC;display:none;flex-direction:column;font:500 15px/1.5 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;letter-spacing:-.01em}",
     "#tpad.on{display:flex;animation:tpad-up .26s cubic-bezier(.2,.8,.2,1)}#tpad.big{height:calc(100vh - 72px)}",
     "@keyframes tpad-up{from{transform:translateY(36px);opacity:0}}",
     "#tpad,#tpad *,#tpen-cv,#tpen-bar,#tpen-bar *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}",
@@ -41,7 +41,7 @@
     /* 계산기 */
     "#tpad .calc{padding:10px 14px 14px;gap:8px;overflow:auto}",
     "#tpad .hist{flex:1;min-height:44px;overflow:auto;font-size:14px;color:#4B5563;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}",
-    "#tpad .hist div{display:flex;justify-content:space-between;gap:10px}#tpad .hist b{color:#12302D;font-weight:800}",
+    "#tpad .hist div{display:flex;justify-content:space-between;gap:10px}#tpad .hist b{color:#111419;font-weight:800}",
     "#tpad .disp{flex:none;min-height:54px;border-radius:14px;background:#F6F7F9;padding:8px 14px;text-align:right;font-weight:800;font-size:26px;line-height:1.4;overflow-x:auto;white-space:nowrap}",
     "#tpad .disp small{display:block;font-weight:600;font-size:13px;line-height:1.2;color:#E5322D;min-height:14px}",
     "#tpad .keys{flex:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}",
@@ -51,7 +51,7 @@
     /* 단계별 풀이 */
     "#tpad .steps{padding:12px 14px 18px;overflow:auto;gap:10px}",
     "#tpad .bar{flex:none;height:4px;border-radius:0;background:#EFF1F4;overflow:hidden}#tpad .bar i{display:block;height:100%;background:var(--p);transition:width .3s}",
-    "#tpad .tpst{border-radius:18px;box-shadow:0 1px 2px rgba(18, 48, 45, .05),0 0 0 1px #E6E8EC;padding:14px}",
+    "#tpad .tpst{border-radius:18px;box-shadow:0 1px 2px rgba(17,20,25, .05),0 0 0 1px #E6E8EC;padding:14px}",
     "#tpad .tpst.done{background:#FAFAFB}#tpad .tpst .n{font-weight:800;font-size:13px;line-height:1;color:var(--pi);margin-bottom:8px}",
     "#tpad .tpst .q{font-weight:700;font-size:16px;line-height:1.5;margin-bottom:10px;white-space:pre-line}",
     "#tpad .tpst .op{display:block;width:100%;min-height:48px;text-align:left;padding:10px 14px;margin-top:6px;border-radius:14px;border:1.5px solid #D3D7DD;background:#fff;font-weight:600;font-size:16px;line-height:1.45}",
@@ -61,9 +61,9 @@
     "#tpad .res{border-radius:18px;background:var(--ps);padding:14px;font-weight:800;color:var(--pi);white-space:pre-line}",
     "#tpad .soon{margin:auto;text-align:center;color:#5F6670;font-weight:600;padding:24px}",
     "#tpad .soon b{display:inline-block;margin-bottom:8px;height:26px;padding:0 10px;border-radius:999px;box-shadow:0 0 0 1px #D3D7DD inset;font-weight:700;font-size:13px;line-height:26px}",
-    ".tpad-btn{display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #D3D7DD;background:#fff;color:#12302D;font:700 14.5px/1 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;cursor:pointer}",
+    ".tpad-btn{display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #D3D7DD;background:#fff;color:#111419;font:700 14.5px/1 'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;cursor:pointer}",
     ".tpad-btn svg{width:18px;height:18px;color:var(--pt,var(--t-app,var(--cta,#0F766E)))}",
-    "@media(min-width:1000px){#tpad{left:auto;top:72px;bottom:16px;right:16px;width:420px;height:auto;max-height:none;border-radius:18px;box-shadow:0 26px 60px -28px rgba(18, 48, 45, .34),0 0 0 1px #E6E8EC}#tpad.big{width:640px;height:auto}}",
+    "@media(min-width:1000px){#tpad{left:auto;top:72px;bottom:16px;right:16px;width:420px;height:auto;max-height:none;border-radius:18px;box-shadow:0 26px 60px -28px rgba(17,20,25, .34),0 0 0 1px #E6E8EC}#tpad.big{width:640px;height:auto}}",
     ":root[data-skin=night] #tpad{filter:invert(.92) hue-rotate(180deg)}"
   ].join("");
 
@@ -143,7 +143,7 @@
     ctx.lineCap = "round"; ctx.lineJoin = "round";
     strokes.forEach(function (s) {
       ctx.globalCompositeOperation = s.t === "era" ? "destination-out" : "source-over";
-      ctx.strokeStyle = "#12302D"; ctx.lineWidth = s.t === "era" ? 22 : 2.4;
+      ctx.strokeStyle = "#111419"; ctx.lineWidth = s.t === "era" ? 22 : 2.4;
       ctx.beginPath();
       s.p.forEach(function (pt, i) { if (i) ctx.lineTo(pt[0], pt[1]); else ctx.moveTo(pt[0], pt[1]); });
       if (s.p.length === 1) ctx.lineTo(s.p[0][0] + .1, s.p[0][1] + .1);
@@ -274,7 +274,7 @@
     "#tpen-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom));z-index:2147480600;display:flex;align-items:center;gap:2px;height:58px;max-width:calc(100vw - 16px);overflow-x:auto;padding:0 8px;border-radius:14px;background:#fff;box-shadow:0 14px 34px -14px rgba(17,20,25,.38),0 0 0 1px #E6E8EC;font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif}" +
     "@media(min-width:900px){#tpen-bar{left:auto;right:12px;transform:none;height:50px;max-width:min(560px,calc(100vw - 24px))}#tpen-bar button{height:40px!important;font-size:12.5px!important;padding:0 8px!important}}" +
     "#tpen-bar button{flex:none;height:44px;min-width:44px;padding:0 10px;border:0;border-radius:12px;background:none;font-weight:700;font-size:13px;color:#475569;cursor:pointer;white-space:nowrap}" +
-    "#tpen-bar button.on{background:color-mix(in srgb," + PP + " 12%,#fff);color:color-mix(in srgb," + PP + " 78%,#12302D)}" +
+    "#tpen-bar button.on{background:color-mix(in srgb," + PP + " 12%,#fff);color:color-mix(in srgb," + PP + " 78%,#111419)}" +
     "#tpen-bar i{flex:none;width:1px;height:26px;background:#E6E8EC;margin:0 4px}#tpen-bar .end{color:" + PP + "}";
   function penRect() { return pcv.getBoundingClientRect(); }
   function penFit() {
@@ -301,7 +301,7 @@
     (PEN.store[PEN.key] || []).forEach(function (s) {
       var o = penBase(s.el); if (o.gone) return; var ox = o.x - r.left, oy = o.y - r.top;
       pctx.globalCompositeOperation = s.t === "era" ? "destination-out" : "source-over";
-      pctx.globalAlpha = s.t === "hl" ? .35 : 1; pctx.strokeStyle = s.t === "hl" ? "#5EC4BA" : "#12302D"; pctx.lineWidth = s.t === "era" ? 24 : s.t === "hl" ? 16 : 2.4;
+      pctx.globalAlpha = s.t === "hl" ? .35 : 1; pctx.strokeStyle = s.t === "hl" ? "#5EC4BA" : "#111419"; pctx.lineWidth = s.t === "era" ? 24 : s.t === "hl" ? 16 : 2.4;
       pctx.beginPath(); s.p.forEach(function (pt, i) { if (i) pctx.lineTo(pt[0] + ox, pt[1] + oy); else pctx.moveTo(pt[0] + ox, pt[1] + oy); });
       if (s.p.length === 1) pctx.lineTo(s.p[0][0] + ox + .1, s.p[0][1] + oy + .1); pctx.stroke();
     });
