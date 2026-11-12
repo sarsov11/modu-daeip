@@ -254,7 +254,7 @@
 
   // ───── 드릴 ─────
   let D = null;
-  // ───── 문제 화면 공용 부품(tera-q.js?v=1112b · tera-pad.js) — 화면표준 12절 ─────
+  // ───── 문제 화면 공용 부품(tera-q.js?v=1112c · tera-pad.js) — 화면표준 12절 ─────
   const TQI = {
     help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.5a2.4 2.4 0 1 1 3.3 2.2c-.7.3-1 .8-1 1.6M12 16.5h.01" stroke-linecap="round"/></svg>',
     note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 6.5C10.2 5 7.6 4.5 4.5 4.8v13c3.1-.3 5.7.2 7.5 1.7 1.8-1.5 4.4-2 7.5-1.7v-13c-3.1-.3-5.7.2-7.5 1.7zM12 6.5v13"/></svg>',
